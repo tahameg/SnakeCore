@@ -1,0 +1,16 @@
+{
+    "name": "com.sparkvisionxr.tahacore",
+    "version": "0.1.0",
+    "displayName": "TahaCore",
+    "description": "The package that includes core functionality like concurrency and dependency injection.",
+    "unity": "2021.3",
+    "licensesUrl": "https://github.com/tahameg/TahaCore/Licences",
+    "dependencies": {
+      "jp.hadashikick.vcontainer": "1.13.2",
+      "com.cysharp.unitask": "2.5.0"
+    },
+    "author": {
+      "name": "Taha Mert Gökdemir",
+      "email": "taha.m.gokdemir@gmail.com"
+    }
+  }
