@@ -20,7 +20,7 @@ namespace TahaCore.DI
         public static void LogWarning(object message) => Instance.m_logger.LogWarning(message);
 
         public static void LogInfo(object message) => Instance.m_logger.LogInfo(message);
-
+        
         protected override void Awake()
         {
             if (Instance != null)
@@ -32,8 +32,8 @@ namespace TahaCore.DI
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            m_logger = new SimpleLogger();
             base.Awake();
+            m_logger = Container.Resolve<ILogger>();
         }
 
         protected override void Configure(IContainerBuilder builder)
