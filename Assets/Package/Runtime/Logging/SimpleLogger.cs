@@ -1,6 +1,4 @@
-﻿using TahaCore.Logging;
-
-namespace TahaCore
+﻿namespace TahaCore.Logging
 {
     public class SimpleLogger : ILogger
     {

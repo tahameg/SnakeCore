@@ -1,6 +1,4 @@
-﻿using VContainer;
-
-namespace TahaCore
+﻿namespace TahaCore.DI
 {
     public enum LifetimeType
     {

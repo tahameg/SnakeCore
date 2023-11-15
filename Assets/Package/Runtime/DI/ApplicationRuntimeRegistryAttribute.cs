@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-
-namespace TahaCore
+namespace TahaCore.DI
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class ApplicationRuntimeRegistryAttribute : Attribute

@@ -1,4 +1,5 @@
 ﻿using TahaCore;
+using TahaCore.DI;
 
 namespace ScopingTests
 {

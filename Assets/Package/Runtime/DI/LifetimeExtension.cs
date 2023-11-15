@@ -1,10 +1,10 @@
 ﻿using VContainer;
 
-namespace TahaCore
+namespace TahaCore.DI
 {
-    public static class LifetimeExtensions
+    internal static class LifetimeExtensions
     {
-        public static Lifetime ToLifetime(this LifetimeType lifetimeType)
+        internal static Lifetime ToLifetime(this LifetimeType lifetimeType)
         {
             if (lifetimeType == LifetimeType.Singleton) return Lifetime.Singleton;
             if (lifetimeType == LifetimeType.Instanced) return Lifetime.Transient;

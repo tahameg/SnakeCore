@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TahaCore.Logging;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-
 using ILogger = TahaCore.Logging.ILogger;
 
-namespace TahaCore
+namespace TahaCore.DI
 {
     public class TahaCoreApplicationRuntime : LifetimeScope
     {
