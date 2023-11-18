@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TahaCore.Config;
+using TahaCore.Config.Types;
 using TahaCore.Logging;
 using UnityEngine;
 using VContainer;
@@ -13,31 +15,35 @@ namespace TahaCore.DI
     public class TahaCoreApplicationRuntime : LifetimeScope
     {
         internal static TahaCoreApplicationRuntime Instance { get; private set; }
+        internal static string AdditionalConfigData;
         private ILogger m_logger;
-
+        private IConfigManager m_configManager;
         public static void LogError(object message) => Instance.m_logger.LogError(message);
 
         public static void LogWarning(object message) => Instance.m_logger.LogWarning(message);
 
         public static void LogInfo(object message) => Instance.m_logger.LogInfo(message);
-
+        
         protected override void Awake()
         {
+            m_logger = new TahaCoreLogger();
             if (Instance != null)
             {
                 Destroy(gameObject);
-                Debug.LogWarning("There is already an instance of TahaCoreApplicationRuntime in the scene.");
+                LogError("There is already an instance of TahaCoreApplicationRuntime in the scene.");
                 return;
             }
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            m_logger = new SimpleLogger();
             base.Awake();
+            m_logger = Container.Resolve<ILogger>();
         }
 
         protected override void Configure(IContainerBuilder builder)
         {
+            RegisterConfigManager(builder);
+            
             foreach (var info in GetRegistrationInfos())
             {
                 if (info.SelfRegistration)
@@ -54,6 +60,19 @@ namespace TahaCore.DI
             }
         }
 
+        private void RegisterConfigManager(IContainerBuilder builder)
+        {
+            IniConfigDeserializer deserializer = new IniConfigDeserializer();
+            ConfigTypeParser parser = new ConfigTypeParser();
+            IniConfigManager configManager = new IniConfigManager(parser, deserializer);
+            
+            if(!string.IsNullOrEmpty(AdditionalConfigData))
+                configManager.AppendConfig(AdditionalConfigData);
+            
+            builder.RegisterInstance(deserializer).As<IConfigDeserializer>();
+            builder.RegisterInstance(configManager).As<IConfigManager>();
+            m_configManager = configManager;
+        }
         private IEnumerable<RegistrationInfo> GetRegistrationInfos()
         {
             var decoratedTypes 
