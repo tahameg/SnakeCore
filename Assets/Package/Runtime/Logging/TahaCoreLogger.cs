@@ -1,6 +1,9 @@
-﻿namespace TahaCore.Logging
+﻿using TahaCore.DI;
+
+namespace TahaCore.Logging
 {
-    public class SimpleLogger : ILogger
+    [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ILogger))]
+    public class TahaCoreLogger : ILogger
     {
         public void LogError(object message)
         {
