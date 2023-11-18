@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TahaCore.DI.ConfigConditions;
 
 namespace TahaCore.DI
 {
@@ -11,7 +12,7 @@ namespace TahaCore.DI
         private Type m_registrationTarget;
         private LifetimeType m_lifetimeType;
         private bool m_selfRegistration;
-        
+
         /// <summary>
         /// Target type to register.
         /// </summary>
@@ -71,7 +72,7 @@ namespace TahaCore.DI
             }
             
         }
-
+        
         private List<Type> ValidateRegistrationTypes(Type target, Type[] registrationTypes)
         {
             if (registrationTypes == null) return null;

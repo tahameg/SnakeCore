@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using TahaCore.Config;
 using TahaCore.Config.Types;
+using TahaCore.DI.ConfigConditions;
 using TahaCore.Logging;
 using UnityEngine;
 using VContainer;
@@ -82,14 +83,28 @@ namespace TahaCore.DI
 
             foreach (var type in decoratedTypes)
             {
+                if(!DoesCoverConfigConditions(type)) continue;
                 var attribute = type.GetCustomAttribute<ApplicationRuntimeRegistryAttribute>();
-                registrationInfos.Add(
-                    new RegistrationInfo(type, attribute.LifetimeType, attribute.RegisteredTypes?.ToArray()));
+                var info = new RegistrationInfo(type, attribute.LifetimeType, attribute.RegisteredTypes?.ToArray());
+                registrationInfos.Add(info);
             }
             
             return registrationInfos;
         }
 
+        private bool DoesCoverConfigConditions(Type type)
+        {
+            var attributes = type.GetCustomAttributes();
+            bool metConditions = true;
+            foreach (var attribute in attributes)
+            {
+                if (attribute is ConfigConditionAttribute configCondition)
+                {
+                    metConditions &= configCondition.Evaluate(m_configManager);
+                }
+            }
+            return metConditions;
+        }
         private IEnumerable<Type> GetTypes(Predicate<Type> predicate)
         {
             var decoratedTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
