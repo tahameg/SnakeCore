@@ -15,6 +15,7 @@ namespace TahaCore.DI
     public class TahaCoreApplicationRuntime : LifetimeScope
     {
         internal static TahaCoreApplicationRuntime Instance { get; private set; }
+        internal static string AdditionalConfigData;
         private ILogger m_logger;
         private IConfigManager m_configManager;
         public static void LogError(object message) => Instance.m_logger.LogError(message);
@@ -64,6 +65,10 @@ namespace TahaCore.DI
             IniConfigDeserializer deserializer = new IniConfigDeserializer();
             ConfigTypeParser parser = new ConfigTypeParser();
             IniConfigManager configManager = new IniConfigManager(parser, deserializer);
+            
+            if(!string.IsNullOrEmpty(AdditionalConfigData))
+                configManager.AppendConfig(AdditionalConfigData);
+            
             builder.RegisterInstance(deserializer).As<IConfigDeserializer>();
             builder.RegisterInstance(configManager).As<IConfigManager>();
             m_configManager = configManager;

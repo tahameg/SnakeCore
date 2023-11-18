@@ -21,7 +21,7 @@ namespace TahaCore.Config.Types
                 string trimmedValue = value.Trim();
                 return System.DateTime.Parse(trimmedValue);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FormatException("Could not parse value to DateTime");
 
