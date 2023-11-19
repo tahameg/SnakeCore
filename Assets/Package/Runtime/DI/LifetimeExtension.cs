@@ -2,6 +2,9 @@
 
 namespace TahaCore.DI
 {
+    /// <summary>
+    /// include helper methods for converting LifetimeType to Lifetime
+    /// </summary>
     internal static class LifetimeExtensions
     {
         internal static Lifetime ToLifetime(this LifetimeType lifetimeType)
