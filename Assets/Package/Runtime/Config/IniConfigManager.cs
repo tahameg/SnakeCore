@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using Cysharp.Threading.Tasks;
-using TahaCore.DI;
+using TahaCore.Runtime.DI;
 using UnityEngine;
 using UnityEngine.Networking;
 using VContainer;
-
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Config
+namespace TahaCore.Runtime.Config
 {
     /// <summary>
     /// Manages IniConfig files.<br/>

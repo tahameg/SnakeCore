@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 
-using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
-    , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
-
-namespace TahaCore.Config
+namespace TahaCore.Runtime.Config
 {
     /// <summary>
     /// Manages config operations.

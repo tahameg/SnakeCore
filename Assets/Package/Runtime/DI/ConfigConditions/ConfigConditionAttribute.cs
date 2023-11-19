@@ -1,7 +1,7 @@
 ﻿using System;
-using TahaCore.Config;
+using TahaCore.Runtime.Config;
 
-namespace TahaCore.DI.ConfigConditions
+namespace TahaCore.Runtime.DI.ConfigConditions
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public abstract class ConfigConditionAttribute : Attribute

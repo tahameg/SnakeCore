@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Config
+namespace TahaCore.Runtime.Config
 {
     public interface IConfigTypeParser
     {

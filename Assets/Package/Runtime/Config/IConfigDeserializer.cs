@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Cysharp.Threading.Tasks;
-
+﻿using System.IO;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Config
+namespace TahaCore.Runtime.Config
 {
     /// <summary>
     /// Deserializes config files to a dictionary.

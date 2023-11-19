@@ -1,6 +1,6 @@
-﻿using TahaCore.DI;
+﻿using TahaCore.Runtime.DI;
 
-namespace TahaCore.Logging
+namespace TahaCore.Runtime.Logging
 {
     [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ILogger))]
     public class TahaCoreLogger : ILogger

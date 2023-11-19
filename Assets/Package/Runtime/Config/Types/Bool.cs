@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Container for bool config value. Use this to parse config value to bool.

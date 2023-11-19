@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using VContainer.Unity;
 
-namespace TahaCore.DI
+namespace TahaCore.Runtime.DI
 {
     [DefaultExecutionOrder(-4999)]
     public class TahaCoreSceneRuntime : LifetimeScope

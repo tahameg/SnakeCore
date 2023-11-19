@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using Cysharp.Threading.Tasks;
-using TahaCore.DI;
-
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Config
+namespace TahaCore.Runtime.Config
 {
     /// <summary>
     /// IniConfigParser is a simple implementation of IConfigDeserializer and IConfigSerializer that deserializes and

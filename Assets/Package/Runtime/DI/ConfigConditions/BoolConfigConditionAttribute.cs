@@ -1,5 +1,4 @@
-﻿using TahaCore.Config;
-using TahaCore.DI.ConfigConditions;
+﻿using TahaCore.Runtime.Config;
 
 namespace TahaCore.Runtime.DI.ConfigConditions
 {

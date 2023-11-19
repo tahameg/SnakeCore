@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     public class Quaternion : VectorConfigType<UnityEngine.Quaternion, float>
     {
