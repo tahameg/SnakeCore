@@ -1,6 +1,7 @@
 ﻿using TahaCore.Config;
+using TahaCore.DI.ConfigConditions;
 
-namespace TahaCore.DI.ConfigConditions
+namespace TahaCore.Runtime.DI.ConfigConditions
 {
     public class BoolConfigConditionAttribute : ConfigConditionAttribute
     {
@@ -12,6 +13,7 @@ namespace TahaCore.DI.ConfigConditions
         {
             m_section = section;
             m_key = key;
+            m_expectedValue = expectedValue;
         }
         
         public override bool Evaluate(IConfigManager manager)
