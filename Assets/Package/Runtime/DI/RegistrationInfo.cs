@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TahaCore.DI.ConfigConditions;
 
-namespace TahaCore.DI
+namespace TahaCore.Runtime.DI
 {
     /// <summary>
     /// Includes validated information about a registration.

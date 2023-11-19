@@ -1,16 +1,16 @@
 ﻿using System;
-using TahaCore.Config.Types;
-using TahaCore.DI;
+using TahaCore.Runtime.Config.Types;
+using TahaCore.Runtime.DI;
 using UnityEngine;
-using DateTime = TahaCore.Config.Types.DateTime;
-using Double = TahaCore.Config.Types.Double;
-using Quaternion = TahaCore.Config.Types.Quaternion;
-using Single = TahaCore.Config.Types.Single;
-using Vector2 = TahaCore.Config.Types.Vector2;
-using Vector3 = TahaCore.Config.Types.Vector3;
-using Guid = TahaCore.Config.Types.Guid;
+using DateTime = TahaCore.Runtime.Config.Types.DateTime;
+using Double = TahaCore.Runtime.Config.Types.Double;
+using Quaternion = TahaCore.Runtime.Config.Types.Quaternion;
+using Single = TahaCore.Runtime.Config.Types.Single;
+using Vector2 = TahaCore.Runtime.Config.Types.Vector2;
+using Vector3 = TahaCore.Runtime.Config.Types.Vector3;
+using Guid = TahaCore.Runtime.Config.Types.Guid;
 
-namespace TahaCore.Config
+namespace TahaCore.Runtime.Config
 {
     [ApplicationRuntimeRegistry(LifetimeType.Instanced, typeof(IConfigTypeParser))]
     public class ConfigTypeParser : IConfigTypeParser

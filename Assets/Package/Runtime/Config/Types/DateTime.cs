@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Container for DateTime. Use this to parse a config value to DateTime.<br/>

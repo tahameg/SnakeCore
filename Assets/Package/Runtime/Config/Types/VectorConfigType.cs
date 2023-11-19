@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Base class for vector types. Inherit this to create a new vector type.

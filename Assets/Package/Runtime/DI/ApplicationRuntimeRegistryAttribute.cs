@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TahaCore.DI
+namespace TahaCore.Runtime.DI
 {
     /// <summary>
     /// Attribute is used to register types in the application runtime.

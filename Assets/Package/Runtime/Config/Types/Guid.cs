@@ -1,4 +1,4 @@
-﻿namespace TahaCore.Config.Types
+﻿namespace TahaCore.Runtime.Config.Types
 {
     public class Guid : ConfigType<System.Guid>
     {

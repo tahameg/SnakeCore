@@ -1,6 +1,6 @@
 ﻿using VContainer;
 
-namespace TahaCore.DI
+namespace TahaCore.Runtime.DI
 {
     /// <summary>
     /// include helper methods for converting LifetimeType to Lifetime

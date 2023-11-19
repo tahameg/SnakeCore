@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TahaCore.DI;
-using UnityEngine;
+using TahaCore.Runtime.DI;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Base class for all types that can be parsed config values.

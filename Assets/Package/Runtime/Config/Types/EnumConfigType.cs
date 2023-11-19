@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Container for Enum Types. Use this to parse a config value to Enum Type. Both enum value and name are accepted.

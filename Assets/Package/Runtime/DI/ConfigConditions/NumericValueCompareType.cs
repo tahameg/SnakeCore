@@ -1,4 +1,4 @@
-﻿namespace TahaCore.DI.ConfigConditions
+﻿namespace TahaCore.Runtime.DI.ConfigConditions
 {
     public enum NumericValueCompareType
     {

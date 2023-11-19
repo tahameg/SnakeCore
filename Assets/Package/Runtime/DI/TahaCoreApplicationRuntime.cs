@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TahaCore.Config;
-using TahaCore.Config.Types;
-using TahaCore.DI.ConfigConditions;
-using TahaCore.Logging;
+using TahaCore.Runtime.Config;
+using TahaCore.Runtime.DI.ConfigConditions;
+using TahaCore.Runtime.Logging;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using ILogger = TahaCore.Logging.ILogger;
+using ILogger = TahaCore.Runtime.Logging.ILogger;
 
-namespace TahaCore.DI
+namespace TahaCore.Runtime.DI
 {
     /// <summary>
     /// The main runtime scope of the application. This is the root scope that registers all the application
@@ -19,7 +18,7 @@ namespace TahaCore.DI
     /// Features: <br/>
     /// - Searches and registers all the types that are decorated with <see cref="ApplicationRuntimeRegistryAttribute"/> <br/>
     /// - Provides <see cref="ConfigConditionAttribute"/> to conditionaly register types.<br/>
-    /// - Provides Logger functionality. See <see cref="TahaCore.Logging.ILogger"/>.
+    /// - Provides Logger functionality. See <see cref="ILogger"/>.
     /// </summary>
     public class TahaCoreApplicationRuntime : LifetimeScope
     {

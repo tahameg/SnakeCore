@@ -1,4 +1,4 @@
-﻿namespace TahaCore
+﻿namespace TahaCore.Runtime
 {
     public interface IConfigProvider
     {

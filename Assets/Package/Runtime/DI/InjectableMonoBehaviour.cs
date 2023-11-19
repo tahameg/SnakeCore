@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TahaCore.DI
+namespace TahaCore.Runtime.DI
 {
     public abstract class InjectableMonoBehaviour : MonoBehaviour
     {

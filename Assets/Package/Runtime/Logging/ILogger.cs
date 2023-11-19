@@ -1,4 +1,4 @@
-﻿namespace TahaCore.Logging
+﻿namespace TahaCore.Runtime.Logging
 {
     public interface ILogger
     {

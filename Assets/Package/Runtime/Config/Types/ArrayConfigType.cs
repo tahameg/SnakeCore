@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Base class for config types that can be represented as an array of values.

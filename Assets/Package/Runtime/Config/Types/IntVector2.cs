@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TahaCore.Config.Types
+namespace TahaCore.Runtime.Config.Types
 {
     /// <summary>
     /// Container for Integer numbers. Use this to parse a config value to Vector2Int.

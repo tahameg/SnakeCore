@@ -1,7 +1,7 @@
 ﻿using System;
-using TahaCore.Config;
+using TahaCore.Runtime.Config;
 
-namespace TahaCore.DI.ConfigConditions
+namespace TahaCore.Runtime.DI.ConfigConditions
 {
     public class IntValueConfigConditionAttribute : ConfigConditionAttribute
     {
