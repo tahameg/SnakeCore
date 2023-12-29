@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TahaCore.DI;
+using UnityEngine;
 
 namespace TahaCore.Runtime.DI
 {

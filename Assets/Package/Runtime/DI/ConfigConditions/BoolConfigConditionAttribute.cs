@@ -1,6 +1,7 @@
-﻿using TahaCore.Runtime.Config;
+﻿using TahaCore.Config;
+using UnityEngine;
 
-namespace TahaCore.Runtime.DI.ConfigConditions
+namespace TahaCore.DI.ConfigConditions
 {
     public class BoolConfigConditionAttribute : ConfigConditionAttribute
     {
@@ -15,12 +16,12 @@ namespace TahaCore.Runtime.DI.ConfigConditions
             m_expectedValue = expectedValue;
         }
         
-        public override bool Evaluate(IConfigManager manager)
+        public override bool Evaluate(IConfigValueProvider configValueProvider)
         {
-            var section = manager.GetSection(m_section);
+            var section = configValueProvider.GetSection(m_section);
             if(section == null) return false;
             if (!section.ContainsKey(m_key)) return false;
-            return manager.GetParam<bool>(m_section, m_key) == m_expectedValue;
+            return configValueProvider.GetParam<bool>(m_section, m_key) == m_expectedValue;
         }
     }
 

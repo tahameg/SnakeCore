@@ -2,10 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using TahaCore.Runtime.Config;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Runtime.Config
+namespace TahaCore.Config
 {
     /// <summary>
     /// Config Deserializer for INI format.

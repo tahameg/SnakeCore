@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using TahaCore.Runtime.DI;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
@@ -9,6 +10,7 @@ namespace TahaCore.Runtime.Config
     /// IniConfigParser is a simple implementation of IConfigDeserializer and IConfigSerializer that deserializes and
     /// serializes config files in INI format.
     /// </summary>
+    [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(IConfigSerializer))]
     internal class IniConfigSerializer : IConfigSerializer
     {
         /// <inheritdoc cref="IConfigSerializer.Serialize(ConfigCollection)"/>

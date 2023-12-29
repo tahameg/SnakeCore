@@ -1,6 +1,7 @@
 ﻿using TahaCore;
+using TahaCore.DI;
+using TahaCore.DI.ConfigConditions;
 using TahaCore.Runtime.DI;
-using TahaCore.Runtime.DI.ConfigConditions;
 
 namespace ScopingTests
 {

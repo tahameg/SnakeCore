@@ -1,6 +1,6 @@
-﻿using TahaCore.Runtime.Config;
+﻿using TahaCore.Config;
 
-namespace TahaCore.Runtime.DI.ConfigConditions
+namespace TahaCore.DI.ConfigConditions
 {
     public class KeyExistenceConfigConditionAttribute : ConfigConditionAttribute
     {
@@ -15,9 +15,9 @@ namespace TahaCore.Runtime.DI.ConfigConditions
             m_existenceType = existenceType;
         }
 
-        public override bool Evaluate(IConfigManager manager)
+        public override bool Evaluate(IConfigValueProvider configValueProvider)
         {
-            var section = manager.GetSection(m_section);
+            var section = configValueProvider.GetSection(m_section);
             if (section == null) return false == (m_existenceType == ExistenceType.Exists);
             if (!section.ContainsKey(m_key)) return false == (m_existenceType == ExistenceType.Exists);
             return m_existenceType == ExistenceType.Exists;
