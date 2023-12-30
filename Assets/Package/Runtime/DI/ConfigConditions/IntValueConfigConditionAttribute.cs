@@ -1,7 +1,11 @@
-﻿using System;
-using TahaCore.Runtime.Config;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
+using TahaCore.Config;
 
-namespace TahaCore.Runtime.DI.ConfigConditions
+namespace TahaCore.DI.ConfigConditions
 {
     public class IntValueConfigConditionAttribute : ConfigConditionAttribute
     {
@@ -19,11 +23,11 @@ namespace TahaCore.Runtime.DI.ConfigConditions
             m_compareType = compareType;
         }
 
-        public override bool Evaluate(IConfigManager manager)
+        public override bool Evaluate(IConfigValueProvider configValueProvider)
         {
             try
             {
-                int value = manager.GetParam<int>(m_section, m_key);
+                int value = configValueProvider.GetParam<int>(m_section, m_key);
                 return EvaluateInt(value, m_compareValue, m_compareType);
             }
             catch (Exception)

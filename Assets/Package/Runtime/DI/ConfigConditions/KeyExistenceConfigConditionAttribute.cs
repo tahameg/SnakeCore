@@ -1,26 +1,30 @@
-﻿using TahaCore.Runtime.Config;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using TahaCore.Config;
 
-namespace TahaCore.Runtime.DI.ConfigConditions
+namespace TahaCore.DI.ConfigConditions
 {
     public class KeyExistenceConfigConditionAttribute : ConfigConditionAttribute
     {
         private readonly string m_section;
         private readonly string m_key;
-        private readonly ExistenceType m_existenceType;
+        private readonly ExistenceCompareType m_existenceCompareType;
         
-        public KeyExistenceConfigConditionAttribute(string section, string key, ExistenceType existenceType)
+        public KeyExistenceConfigConditionAttribute(string section, string key, ExistenceCompareType existenceCompareType)
         {
             m_section = section;
             m_key = key;
-            m_existenceType = existenceType;
+            m_existenceCompareType = existenceCompareType;
         }
 
-        public override bool Evaluate(IConfigManager manager)
+        public override bool Evaluate(IConfigValueProvider configValueProvider)
         {
-            var section = manager.GetSection(m_section);
-            if (section == null) return false == (m_existenceType == ExistenceType.Exists);
-            if (!section.ContainsKey(m_key)) return false == (m_existenceType == ExistenceType.Exists);
-            return m_existenceType == ExistenceType.Exists;
+            var section = configValueProvider.GetSection(m_section);
+            if (section == null) return false == (m_existenceCompareType == ExistenceCompareType.Exists);
+            if (!section.ContainsKey(m_key)) return false == (m_existenceCompareType == ExistenceCompareType.Exists);
+            return m_existenceCompareType == ExistenceCompareType.Exists;
         }
     }
 }

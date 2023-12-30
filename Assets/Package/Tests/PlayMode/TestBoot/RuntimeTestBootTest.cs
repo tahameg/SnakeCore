@@ -1,10 +1,12 @@
 ﻿using NUnit.Framework;
-using TahaCore.Tests.Runtime;
 
 namespace TahaCore.Tests.PlayMode.TestBoot
 {
+    [TestFixture]
     public class RuntimeTestBootTest : RuntimeTestBoot
     {
+
+        protected override string AdditionalConfig { get; } = null;
         [Test]
         public void InitializationTest()
         {

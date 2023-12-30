@@ -1,11 +1,15 @@
-﻿using System;
-using TahaCore.Runtime.Config;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
+using TahaCore.Config;
 
-namespace TahaCore.Runtime.DI.ConfigConditions
+namespace TahaCore.DI.ConfigConditions
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public abstract class ConfigConditionAttribute : Attribute
     {
-        public abstract bool Evaluate(IConfigManager manager);
+        public abstract bool Evaluate(IConfigValueProvider configValueProvider);
     }
 }

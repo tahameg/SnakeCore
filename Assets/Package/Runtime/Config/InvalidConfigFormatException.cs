@@ -1,4 +1,8 @@
-﻿namespace TahaCore.Runtime.Config
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+namespace TahaCore.Config
 {
     /// <summary>
     /// Exception thrown when the config file is not in the correct format.

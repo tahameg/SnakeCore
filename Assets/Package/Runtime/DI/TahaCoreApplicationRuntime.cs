@@ -1,32 +1,35 @@
-using System;
+// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TahaCore.Runtime.Config;
-using TahaCore.Runtime.DI.ConfigConditions;
-using TahaCore.Runtime.Logging;
-using UnityEngine;
+using TahaCore.Config;
+using TahaCore.DI.ConfigConditions;
+using TahaCore.Logging;
+using TahaCore.Reflection;
+using TahaCore.Serialization;
 using VContainer;
 using VContainer.Unity;
-using ILogger = TahaCore.Runtime.Logging.ILogger;
+using ILogger = TahaCore.Logging.ILogger;
 
-namespace TahaCore.Runtime.DI
+namespace TahaCore.DI
 {
     /// <summary>
     /// The main runtime scope of the application. This is the root scope that registers all the application
     /// runtime types. This should be considered the entry point of the application. <br/>
     /// Features: <br/>
     /// - Searches and registers all the types that are decorated with <see cref="ApplicationRuntimeRegistryAttribute"/> <br/>
-    /// - Provides <see cref="ConfigConditionAttribute"/> to conditionaly register types.<br/>
+    /// - Provides <see cref="ConfigConditionAttribute"/> to conditionally register types.<br/>
     /// - Provides Logger functionality. See <see cref="ILogger"/>.
     /// </summary>
     public class TahaCoreApplicationRuntime : LifetimeScope
     {
-        [SerializeField] private bool doNotDestroyOnLoad = true;
         internal static TahaCoreApplicationRuntime Instance { get; private set; }
         internal static string AdditionalConfigData;
         private ILogger m_logger;
-        private IConfigManager m_configManager;
+        private IConfigValueProvider m_configValueProvider;
 
         /// <summary>
         /// Log and error through TahaCore.ILogger.
@@ -58,8 +61,6 @@ namespace TahaCore.Runtime.DI
             }
 
             Instance = this;
-            if(doNotDestroyOnLoad)
-                DontDestroyOnLoad(gameObject);
             base.Awake();
             m_logger = Container.Resolve<ILogger>();
         }
@@ -86,21 +87,26 @@ namespace TahaCore.Runtime.DI
 
         private void RegisterConfigManager(IContainerBuilder builder)
         {
-            IniConfigDeserializer deserializer = new IniConfigDeserializer();
-            ConfigTypeParser parser = new ConfigTypeParser();
-            IniConfigManager configManager = new IniConfigManager(parser, deserializer);
+            IniConfigDeserializer configDeserializer = new IniConfigDeserializer();
+            ITypeParserContext typeParserContext = new AutoBoundTypeParserContext();
+            ITypeParsingProvider typeParsingProvider = new TypeParsingProvider(typeParserContext);
+            IniConfigValueProvider configValueProvider = new IniConfigValueProvider(typeParsingProvider, configDeserializer);
+
+            if (!string.IsNullOrEmpty(AdditionalConfigData))
+            {
+                configValueProvider.AppendConfig(AdditionalConfigData);
+            }
             
-            if(!string.IsNullOrEmpty(AdditionalConfigData))
-                configManager.AppendConfig(AdditionalConfigData);
-            
-            builder.RegisterInstance(deserializer).As<IConfigDeserializer>();
-            builder.RegisterInstance(configManager).As<IConfigManager>();
-            m_configManager = configManager;
+            builder.RegisterInstance(configDeserializer).As<IConfigDeserializer>();
+            builder.RegisterInstance(configValueProvider).As<IConfigValueProvider>();
+            builder.RegisterInstance(typeParsingProvider).As<ITypeParsingProvider>();
+            m_configValueProvider = configValueProvider;
         }
+        
         private IEnumerable<RegistrationInfo> GetRegistrationInfos()
         {
             var decoratedTypes 
-                = GetTypes(type => type.IsDefined(typeof(ApplicationRuntimeRegistryAttribute), false));
+                = TypeUtility.GetTypes(type => type.IsDefined(typeof(ApplicationRuntimeRegistryAttribute), false));
             
             var registrationInfos = new List<RegistrationInfo>();
 
@@ -115,7 +121,7 @@ namespace TahaCore.Runtime.DI
             return registrationInfos;
         }
 
-        private bool DoesCoverConfigConditions(Type type)
+        private bool DoesCoverConfigConditions(MemberInfo type)
         {
             var attributes = type.GetCustomAttributes();
             bool metConditions = true;
@@ -123,18 +129,10 @@ namespace TahaCore.Runtime.DI
             {
                 if (attribute is ConfigConditionAttribute configCondition)
                 {
-                    metConditions &= configCondition.Evaluate(m_configManager);
+                    metConditions &= configCondition.Evaluate(m_configValueProvider);
                 }
             }
             return metConditions;
-        }
-        private IEnumerable<Type> GetTypes(Predicate<Type> predicate)
-        {
-            var decoratedTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                from type in assembly.GetTypes()
-                select type).Where(type => predicate(type));
-
-            return decoratedTypes;
         }
     }
 }

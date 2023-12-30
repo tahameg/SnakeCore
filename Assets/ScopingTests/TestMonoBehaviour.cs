@@ -1,4 +1,4 @@
-﻿using TahaCore.Runtime.DI;
+﻿using TahaCore.DI;
 using VContainer;
 
 namespace ScopingTests
