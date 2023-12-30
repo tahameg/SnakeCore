@@ -1,7 +1,11 @@
+// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
 using System;
 using System.Collections.Generic;
 
-namespace TahaCore.Runtime.DI
+namespace TahaCore.DI
 {
     /// <summary>
     /// Attribute is used to register types in the application runtime.

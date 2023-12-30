@@ -1,10 +1,14 @@
-﻿using System.IO;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System.IO;
 using System.Text;
-using TahaCore.Runtime.DI;
+using TahaCore.DI;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Runtime.Config
+namespace TahaCore.Config
 {
     /// <summary>
     /// IniConfigParser is a simple implementation of IConfigDeserializer and IConfigSerializer that deserializes and

@@ -1,17 +1,25 @@
-﻿using System;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 using TahaCore.DI;
 
 namespace TahaCore.Serialization
 {
+    /// <summary>
+    /// The implementation of ITypeParsingProvider that handles parsing operations using the registered TypeParsers
+    /// in TypeParserContext<see cref="AutoBoundTypeParserContext"/>.
+    /// </summary>
     public class TypeParsingProvider : ITypeParsingProvider
     {
-        private readonly TypeParserContext m_typeParserContext;
+        private readonly ITypeParserContext m_typeParserContext;
         
-        internal TypeParsingProvider()
+        internal TypeParsingProvider(ITypeParserContext typeParserContext)
         {
-            m_typeParserContext = new TypeParserContext();
+            m_typeParserContext = typeParserContext;
         }
-        
+
         public object Parse(Type targetType, string value)
         {
             var parser = m_typeParserContext.GetParserForType(targetType);
@@ -20,7 +28,7 @@ namespace TahaCore.Serialization
             TahaCoreApplicationRuntime.LogWarning($"No parser found for type {targetType.Name}");
             return null;
         }
-
+        
         public T Parse<T>(string value)
         {
             var parser = m_typeParserContext.GetParserForType(typeof(T));

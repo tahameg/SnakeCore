@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using TahaCore.Config;
-using TahaCore.Runtime.DI;
+using TahaCore.DI;
 using TahaCore.Serialization;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -13,20 +13,30 @@ namespace TahaCore.Tests.PlayMode.Config
     {
         protected override string AdditionalConfig =>
             "[TestConfig]\nIntValue=159\nBoolValue=True\nFloatValue=3.14\nStringValue=TEST_STRING\nLongValue=1234523789\nIntArray = [1,2,3,4,5]";
-    
-        [Test]
-        public void TestConfigSection()
+        private TestConfig m_testConfig;
+        
+        [OneTimeSetUp]
+        public void OneTimeSetup()
         {
-            var testConfigSection = Runtime.Container.Resolve(typeof(TestConfig)) as TestConfig;
-            Assert.NotNull(testConfigSection);
-            Assert.IsTrue(testConfigSection.SomeInteger == 159);
-            Assert.IsTrue(testConfigSection.SomeBoolean == true);
-            Assert.IsTrue(Mathf.Approximately(testConfigSection.SomeFloat ,3.14f));
-            foreach (var i in testConfigSection.SomeIntArray)
-            {
-                Debug.Log(i);
-            }
-            Assert.IsTrue(testConfigSection.SomeString == "TEST_STRING");
+            m_testConfig = Runtime.Container.Resolve(typeof(TestConfig)) as TestConfig;
+        }
+        
+        [Test]
+        public void ConfigSectionPrimitivesTest()
+        {
+            Assert.NotNull(m_testConfig);
+            Assert.IsTrue(m_testConfig.SomeInteger == 159);
+            Assert.IsTrue(m_testConfig.SomeBoolean == true);
+            Assert.IsTrue(Mathf.Approximately(m_testConfig.SomeFloat ,3.14f));
+            Assert.IsTrue(m_testConfig.SomeString == "TEST_STRING");
+        }
+
+        [Test]
+        public void ConfigSectionArrayParsingTest()
+        {
+            Assert.NotNull(m_testConfig);
+            for(int i = 0; i < m_testConfig.SomeIntArray.Length; i++)
+                Assert.IsTrue(m_testConfig.SomeIntArray[i] == i + 1);
         }
     }
     
@@ -42,6 +52,7 @@ namespace TahaCore.Tests.PlayMode.Config
         [ConfigProperty("IntArray")] public int[] SomeIntArray { get; set; }
     }
     
+    [TypeParserContextRegistry]
     [Preserve]
     public class LongParser : ITypeParser
     {

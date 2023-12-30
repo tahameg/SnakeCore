@@ -1,16 +1,18 @@
-﻿using System;
-using TahaCore.Runtime.DI;
-using VContainer;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 
 namespace TahaCore.Serialization
 {
     /// <summary>
-    /// Base class for vector types. Inherit this to create a new vector type.
+    /// Base class for parsers for vector types. Inherit this to create a new parser for a vector type..
     /// - Format check is handled automatically.
-    /// - Only override the ParseData method to parse the data type. And CreateVector to create the vector.
+    /// - Only override the CreateVector method to create the vector instance using the given data.
     /// </summary>
-    /// <typeparam name="TVectorType"></typeparam>
-    /// <typeparam name="TVectorDataType"></typeparam>
+    /// <typeparam name="TVectorType">Type of the vector.</typeparam>
+    /// <typeparam name="TVectorDataType">Type of the data that vector contains.</typeparam>
     public abstract class VectorTypeParser<TVectorType, TVectorDataType> : ITypeParser
     {
         
@@ -22,14 +24,25 @@ namespace TahaCore.Serialization
         /// </summary>
         private readonly int m_dimension;
         private ITypeParser m_elementTypeParser;
-
+        
+        /// <summary>
+        /// Inherited by the child class.
+        /// </summary>
+        /// <param name="dimension">Dimension of the vector.</param>
+        /// <param name="elementTypeParser"></param>
         protected VectorTypeParser(int dimension, ITypeParser elementTypeParser)
         {
             m_dimension = dimension;
             m_elementTypeParser = elementTypeParser;
             TargetType = typeof(TVectorType);
         }
-
+        
+        /// <summary>
+        /// Parses the given string value to vector. If the value is null, default value is returned.
+        /// </summary>
+        /// <param name="value">String value to parse.</param>
+        /// <returns>Vector value of the given string.</returns>
+        /// <exception cref="FormatException">If the given string is not a valid vector.</exception>
         public object Parse(string value)
         {
             if(value == null) return default;
@@ -56,6 +69,11 @@ namespace TahaCore.Serialization
             return CreateVector(vector);
         }
         
+        /// <summary>
+        /// Override this to create and return the vector.
+        /// </summary>
+        /// <param name="data">Data for the vector.</param> 
+        /// <returns>Vector created from the given data.</returns>
         protected abstract TVectorType CreateVector(TVectorDataType[] data);
     }
 }

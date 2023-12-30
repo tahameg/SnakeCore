@@ -1,7 +1,10 @@
-﻿using System;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 using TahaCore.DI;
 using Unity.VisualScripting.YamlDotNet.Core;
-using UnityEngine;
 
 namespace TahaCore.Config
 {

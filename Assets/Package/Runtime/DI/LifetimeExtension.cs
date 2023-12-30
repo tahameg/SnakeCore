@@ -1,6 +1,10 @@
-﻿using VContainer;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using VContainer;
 
-namespace TahaCore.Runtime.DI
+namespace TahaCore.DI
 {
     /// <summary>
     /// include helper methods for converting LifetimeType to Lifetime

@@ -1,18 +1,18 @@
-using System;
+// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TahaCore.Config;
 using TahaCore.DI.ConfigConditions;
+using TahaCore.Logging;
 using TahaCore.Reflection;
-using TahaCore.Runtime.Config;
-using TahaCore.Runtime.DI;
-using TahaCore.Runtime.Logging;
 using TahaCore.Serialization;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using ILogger = TahaCore.Runtime.Logging.ILogger;
+using ILogger = TahaCore.Logging.ILogger;
 
 namespace TahaCore.DI
 {
@@ -88,7 +88,8 @@ namespace TahaCore.DI
         private void RegisterConfigManager(IContainerBuilder builder)
         {
             IniConfigDeserializer configDeserializer = new IniConfigDeserializer();
-            ITypeParsingProvider typeParsingProvider = new TypeParsingProvider();
+            ITypeParserContext typeParserContext = new AutoBoundTypeParserContext();
+            ITypeParsingProvider typeParsingProvider = new TypeParsingProvider(typeParserContext);
             IniConfigValueProvider configValueProvider = new IniConfigValueProvider(typeParsingProvider, configDeserializer);
 
             if (!string.IsNullOrEmpty(AdditionalConfigData))

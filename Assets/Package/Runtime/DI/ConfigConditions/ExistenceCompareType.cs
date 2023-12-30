@@ -2,14 +2,11 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-namespace TahaCore.DI
+namespace TahaCore.DI.ConfigConditions
 {
-    /// <summary>
-    /// LifetimeType is used to determine the lifetime of a registered type
-    /// </summary>
-    public enum LifetimeType
+    public enum ExistenceCompareType
     {
-        Singleton,
-        Instanced
+        Exists,
+        NotExists
     }
 }

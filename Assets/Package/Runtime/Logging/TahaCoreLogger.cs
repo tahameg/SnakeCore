@@ -1,7 +1,14 @@
-﻿using TahaCore.Runtime.DI;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using TahaCore.DI;
 
-namespace TahaCore.Runtime.Logging
+namespace TahaCore.Logging
 {
+    /// <summary>
+    /// TahaCoreLogger is a simple logger that uses Unity's Debug.Log, Debug.LogWarning and Debug.LogError
+    /// </summary>
     [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ILogger))]
     public class TahaCoreLogger : ILogger
     {

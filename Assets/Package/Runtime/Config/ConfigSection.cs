@@ -1,9 +1,10 @@
-using System.Collections;
+// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
 using System.Reflection;
 using TahaCore.DI;
-using TahaCore.Runtime.DI;
 using TahaCore.Serialization;
-using UnityEngine;
 using VContainer;
 
 namespace TahaCore.Config

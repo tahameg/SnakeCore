@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System.Collections.Generic;
 
 namespace TahaCore.Config
 {

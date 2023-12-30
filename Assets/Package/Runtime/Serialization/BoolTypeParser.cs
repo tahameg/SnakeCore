@@ -1,15 +1,28 @@
-﻿using System;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 using UnityEngine.Scripting;
 
 namespace TahaCore.Serialization
 {
+    /// <summary>
+    /// Parses a string value to bool. Use this to parse a string value to bool.<br/>
+    /// The following values are considered true: "1", "True" (Case insensitive)<br/>
+    /// The following values are considered false: "0", "False" (Case insensitive)<br/> 
+    /// </summary>
+    [TypeParserContextRegistry]
     [Preserve]
     internal class BoolTypeParser : ITypeParser
     {
         
         public Type TargetType { get; }
         public bool CanBeArrayElement { get; } = true;
-
+        
+        /// <summary>
+        /// Creates a new instance of BoolTypeParser.
+        /// </summary>
         internal BoolTypeParser()
         {
             TargetType = typeof(bool);

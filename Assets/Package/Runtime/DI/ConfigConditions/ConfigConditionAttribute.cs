@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 using TahaCore.Config;
 
 namespace TahaCore.DI.ConfigConditions

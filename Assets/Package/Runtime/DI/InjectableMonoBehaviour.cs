@@ -1,7 +1,10 @@
-﻿using TahaCore.DI;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
 using UnityEngine;
 
-namespace TahaCore.Runtime.DI
+namespace TahaCore.DI
 {
     public abstract class InjectableMonoBehaviour : MonoBehaviour
     {

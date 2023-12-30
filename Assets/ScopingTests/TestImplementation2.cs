@@ -1,12 +1,10 @@
-﻿using TahaCore;
-using TahaCore.DI;
+﻿using TahaCore.DI;
 using TahaCore.DI.ConfigConditions;
-using TahaCore.Runtime.DI;
 
 namespace ScopingTests
 {
     [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ITestInterface))]
-    [KeyExistenceConfigCondition("TAHA_TEST", "inject_second_test", ExistenceType.Exists)]
+    [KeyExistenceConfigCondition("TAHA_TEST", "inject_second_test", ExistenceCompareType.Exists)]
     public class TestImplementation2 : ITestInterface
     {
         public void SayMyName()

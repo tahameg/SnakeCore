@@ -1,11 +1,14 @@
-﻿using System;
-using UnityEngine.Scripting;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 
 namespace TahaCore.Serialization
 {
     /// <summary>
-    /// Container for Enum Types. Use this to parse a config value to Enum Type. Both enum value and name are accepted.
-    /// Consider an example enum as:
+    /// Parser for parsing Enum Types. Use this to parse a config value to Enum Type.
+    /// Both enum value and name are accepted. Consider an example enum as:
     /// <code>
     /// enum ExampleEnum
     /// {
@@ -19,23 +22,33 @@ namespace TahaCore.Serialization
     /// EnumConfigType&lt;ExampleEnum&gt;("1").Value; // returns ExampleEnum.Value1
     /// </code>
     /// </summary>
-    /// <typeparam name="TEnumType">Type of enum</typeparam>
-    [Preserve]
+    [TypeParserContextRegistry]
     internal class EnumTypeParser : ITypeParser
     {
         public Type TargetType { get; }
         public bool CanBeArrayElement { get; } = true;
 
-        /// <inheritdoc cref="ConfigType{T}(string)"/>
-        /// <exception cref="ArgumentException"> Thrown if TEnumType is not enum.</exception>
+        /// <summary>
+        /// Creates a new instance of EnumTypeParser.
+        /// </summary>
+        /// <param name="enumType">Type of the enum. </param>
+        /// <exception cref="ArgumentException">If the given type is not an enum type.</exception>
         public EnumTypeParser(Type enumType)
         {
-            if(!enumType.IsEnum)
-                throw new ArgumentException("TEnumType must be an enumerated type");
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("TEnumType must be an enumerated type");   
+            }
             TargetType = enumType;
         }
-
-        /// <inheritdoc cref="ConfigType{T}.Parse(string)" />
+        
+        /// <summary>
+        /// Parses the given string value to Enum Type. If the value is null, default value of the enum is returned.
+        /// The value can be either the name or the value of the enum.
+        /// </summary>
+        /// <param name="value">Value to parse.</param>
+        /// <returns>The enum value of the given string.</returns>
+        /// Throws FormatException if the given string is not a valid enum value.
         public object Parse(string value)
         {
             if(value == null) return default;
@@ -47,11 +60,12 @@ namespace TahaCore.Serialization
             return ParseAsName(trimmedValue);
         }
         
-        
         private object ParseAsValue(int value)
         {
-            if(!Enum.IsDefined(TargetType, value))
-                throw new FormatException($"Could not parse value to Enum Type since it is out of scope: {value}");
+            if (!Enum.IsDefined(TargetType, value))
+            {
+                throw new FormatException($"Could not parse value to Enum Type since it is out of scope: {value}");   
+            }
             return Enum.ToObject(TargetType, value);
         }
         

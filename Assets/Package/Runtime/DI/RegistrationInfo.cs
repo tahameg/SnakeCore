@@ -1,7 +1,11 @@
-﻿using System;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 using System.Collections.Generic;
 
-namespace TahaCore.Runtime.DI
+namespace TahaCore.DI
 {
     /// <summary>
     /// Includes validated information about a registration.

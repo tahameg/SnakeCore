@@ -1,25 +1,36 @@
-﻿using System;
-using TahaCore.Serialization;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using System;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Runtime.Config.Types
+namespace TahaCore.Serialization
 {
     /// <summary>
-    /// Container for Integer numbers. Use this to parse a config value to Integer.
+    /// Parser for parsing Integer numbers from string. Use this to parse a string value to Integer.
     /// </summary>
+    [TypeParserContextRegistry]
     [Preserve]
     internal class IntegerTypeParser : ITypeParser
     {
         public Type TargetType { get; }
         public bool CanBeArrayElement { get; } = true;
 
-        /// <inheritdoc cref="ConfigType{T}(string)"/>
+        /// <summary>
+        /// creates a new instance of IntegerTypeParser.
+        /// </summary>
         internal IntegerTypeParser()
         {
             TargetType = typeof(int);
         }
 
-        /// <inheritdoc cref="ConfigType{T}.Parse(string)" />
+        /// <summary>
+        /// Parses the given string value to Integer. If the value is null, 0 is returned.
+        /// </summary>
+        /// <param name="value">String value to parse.</param>
+        /// <returns>Integer value of the given string.</returns>
+        /// <exception cref="FormatException">If the given string is not a valid Integer.</exception>
         public object Parse(string value)
         {
             if(value == null) return default;

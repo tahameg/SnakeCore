@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
-using TahaCore.Config;
+using TahaCore.DI;
 using TahaCore.DI.ConfigConditions;
-using TahaCore.Runtime.DI;
-using UnityEngine;
 using VContainer;
 
 namespace TahaCore.Tests.PlayMode.DI
@@ -73,21 +71,21 @@ namespace TahaCore.Tests.PlayMode.DI
     }
     
     [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition", ExistenceType.Exists)]
+    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition", ExistenceCompareType.Exists)]
     public class ExistConditionalInjectionPositiveTestType
     {
         
     }
     
     [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition_2", ExistenceType.Exists)]
+    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition_2", ExistenceCompareType.Exists)]
     public class ExistConditionalInjectionNegativeTestType
     {
         
     }
 
     [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition", ExistenceType.Exists)]
+    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition", ExistenceCompareType.Exists)]
     [IntValueConfigCondition("CONFIG_CONDITIONS", "IntCondition", 13, NumericValueCompareType.LessThanOrEqual)]
     [BoolConfigCondition("CONFIG_CONDITIONS", "BoolCondition", true)]
     public class MultiConditionalPositiveTestType
@@ -96,7 +94,7 @@ namespace TahaCore.Tests.PlayMode.DI
     }
     
     [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition", ExistenceType.Exists)]
+    [KeyExistenceConfigCondition("CONFIG_CONDITIONS", "ExistCondition", ExistenceCompareType.Exists)]
     [IntValueConfigCondition("CONFIG_CONDITIONS", "IntCondition", 11, NumericValueCompareType.LessThanOrEqual)]
     [BoolConfigCondition("CONFIG_CONDITIONS", "BoolCondition", false)]
     public class MultiConditionalNegativeTestType

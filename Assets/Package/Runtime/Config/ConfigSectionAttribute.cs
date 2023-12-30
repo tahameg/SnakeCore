@@ -1,3 +1,7 @@
+// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
 using System;
 
 namespace TahaCore.Config

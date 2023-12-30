@@ -1,5 +1,8 @@
-﻿using TahaCore.Config;
-using UnityEngine;
+﻿// ==============================License==================================
+// MIT License
+// Author: Taha Mert Gökdemir
+// =======================================================================
+using TahaCore.Config;
 
 namespace TahaCore.DI.ConfigConditions
 {
