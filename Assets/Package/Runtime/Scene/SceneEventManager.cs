@@ -12,10 +12,12 @@ namespace TahaCore.Scene
         private readonly Queue<SceneEvent> m_eventQueue = new();
         private readonly int m_maxHistorySize;
         
+        private const int k_maxQueueSize = 40;
+        
         [Inject]
         public SceneEventManager(SceneEventSettingsConfigSection settingsConfigSection)
         {
-            m_maxHistorySize = settingsConfigSection.MaxHistorySize == default ? 40 : settingsConfigSection.MaxHistorySize;
+            m_maxHistorySize = settingsConfigSection.MaxHistorySize == default ? k_maxQueueSize : settingsConfigSection.MaxHistorySize;
         }
         
         public void AddSceneEvent<T>(T sceneEvent) where T : SceneEvent
