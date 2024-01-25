@@ -79,3 +79,6 @@ crashlytics-build.properties
 # Others
 *.bak
 *.bak.meta
+
+# DotSettings
+*.DotSettings
