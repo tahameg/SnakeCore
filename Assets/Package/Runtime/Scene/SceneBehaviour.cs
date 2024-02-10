@@ -1,19 +1,15 @@
+using TahaCore.DI;
 using UnityEngine;
+using VContainer;
 
 namespace TahaCore.Scene
 {
-    public class SceneBehaviour : MonoBehaviour
+    public class SceneBehaviour : InjectableMonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [Inject] protected readonly ISceneEventHistory SceneEventHistory;
+        [Inject] protected readonly ISceneEventProvider SceneEventPublisher;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
+
+    
 }
