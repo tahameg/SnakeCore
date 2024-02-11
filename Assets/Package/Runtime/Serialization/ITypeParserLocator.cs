@@ -3,13 +3,14 @@
 // Author: Taha Mert Gökdemir
 // =======================================================================
 using System;
+using TahaCore.Serialization.TypeParsers;
 
 namespace TahaCore.Serialization
 {
     /// <summary>
-    /// TypeParserContext is used to get parsers for types.
+    /// Provides type parsers for the given type.
     /// </summary>
-    internal interface ITypeParserContext
+    internal interface ITypeParserLocator
     {
         /// <summary>
         /// Get parser for the given type.

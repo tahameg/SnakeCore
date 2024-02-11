@@ -2,26 +2,28 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
+using TahaCore.Serialization;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Serialization
+namespace TahaCore.Config.TypeDeserializers
 {
     /// <summary>
-    /// Parser for parsing Vector3 from string. Use this to parse a string value to Vector3.<br/>
+    /// Parser for parsing Vector3 from string. Use this to parser a string value to Vector3.<br/>
     /// The format is as follows: (1, 2, 3)
     /// <br/>
     /// Rules:<br/>
     /// - Entry must be enclosed in parenthesis.
     /// </summary>
-    [TypeParserContextRegistry]
+    [ConfigTypeParser]
     [Preserve]
     internal class Vector3TypeParser : VectorTypeParser<Vector3, float>
     { 
         /// <summary>
         /// Creates a new instance of Vector3TypeParser.
         /// </summary>
-        internal Vector3TypeParser() : base(3, new FloatTypeParser()){}
+        internal Vector3TypeParser() : base(3){}
         
         /// <summary>
         /// Creates a new Vector3 from the given data.

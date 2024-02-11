@@ -2,6 +2,8 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
+using System;
 using System.Collections.Generic;
 
 namespace TahaCore.Config
@@ -40,6 +42,15 @@ namespace TahaCore.Config
         /// <param name="sectionName">Name of the section.</param>
         /// <param name="key">Name of the parameter key.</param>
         /// <returns>Returns the parameter value in string format.</returns>
-        T GetParam<T>(string sectionName, string key);
+        T GetParamValue<T>(string sectionName, string key);
+        
+        /// <summary>
+        /// Retrieves a config parameter value from a section.
+        /// </summary>
+        /// <param name="sectionName">Name of the section.</param>
+        /// <param name="key">Name of the parameter key.</param>
+        /// <param name="type">Type to parser this config value.</param>
+        /// <returns>Returns the parameter value in string format.</returns>
+        object GetParamValue(Type type, string sectionName, string key);
     }
 }

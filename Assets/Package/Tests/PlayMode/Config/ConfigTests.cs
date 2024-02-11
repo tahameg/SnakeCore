@@ -3,6 +3,7 @@ using NUnit.Framework;
 using TahaCore.Config;
 using TahaCore.DI;
 using TahaCore.Serialization;
+using TahaCore.Serialization.TypeParsers;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -12,7 +13,7 @@ namespace TahaCore.Tests.PlayMode.Config
     public class ConfigTests : RuntimeTestBoot
     {
         protected override string AdditionalConfig =>
-            "[TestConfig]\nIntValue=159\nBoolValue=True\nFloatValue=3.14\nStringValue=TEST_STRING\nLongValue=1234523789\nIntArray = [1,2,3,4,5]";
+            "[TestConfig]\nIntValue=159\nBoolValue=True\nFloatValue=3.14\nStringValue=TEST_STRING\nLongValue=1234523789\nIntArray=[1,2,3,4,5]";
         private TestConfig m_testConfig;
         
         [OneTimeSetUp]
@@ -56,7 +57,7 @@ namespace TahaCore.Tests.PlayMode.Config
         [ConfigProperty("FloatValue")] public float SomeFloat { get; set; }
         [ConfigProperty("StringValue")] public string SomeString { get; set; }
         
-        [UseParser(typeof(LongParser))]
+        [ParseWith(typeof(LongParser))]
         [ConfigProperty("LongValue")] public long SomeLong { get; set; }
         [ConfigProperty("IntArray")] public int[] SomeIntArray { get; set; }
     }

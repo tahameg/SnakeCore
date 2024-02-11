@@ -2,20 +2,21 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using UnityEngine;
 
-namespace TahaCore.Serialization
+namespace TahaCore.Config.TypeDeserializers
 {
     /// <summary>
-    /// Parser for parsing Quaternion from string. Use this to parse a string value to Quaternion.
+    /// Parser for parsing Quaternion from string. Use this to parser a string value to Quaternion.
     /// </summary>
-    [TypeParserContextRegistry]
+    [ConfigTypeParser]
     internal class QuaternionTypeParser : VectorTypeParser<Quaternion, float>
     {
         /// <summary>
         /// Creates a new instance of QuaternionTypeParser.
         /// </summary>
-        internal QuaternionTypeParser() : base(4, new FloatTypeParser())
+        internal QuaternionTypeParser() : base(4)
         {
         }
         

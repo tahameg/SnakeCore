@@ -88,9 +88,9 @@ namespace TahaCore.DI
         private void RegisterConfigManager(IContainerBuilder builder)
         {
             IniConfigDeserializer configDeserializer = new IniConfigDeserializer();
-            ITypeParserContext typeParserContext = new AutoBoundTypeParserContext();
-            ITypeParsingProvider typeParsingProvider = new TypeParsingProvider(typeParserContext);
-            IniConfigValueProvider configValueProvider = new IniConfigValueProvider(typeParsingProvider, configDeserializer);
+            ITypeParserLocator typeParserLocator = new IniConfigTypeParserLocator();
+            IParsingProvider parsingProvider = new IniConfigParsingProvider(typeParserLocator);
+            IniConfigValueProvider configValueProvider = new IniConfigValueProvider(parsingProvider, configDeserializer);
 
             if (!string.IsNullOrEmpty(AdditionalConfigData))
             {
@@ -99,7 +99,6 @@ namespace TahaCore.DI
             
             builder.RegisterInstance(configDeserializer).As<IConfigDeserializer>();
             builder.RegisterInstance(configValueProvider).As<IConfigValueProvider>();
-            builder.RegisterInstance(typeParsingProvider).As<ITypeParsingProvider>();
             m_configValueProvider = configValueProvider;
         }
         

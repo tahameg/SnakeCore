@@ -3,8 +3,7 @@
 // Author: Taha Mert Gökdemir
 // =======================================================================
 using System;
-using TahaCore.DI;
-using TahaCore.Serialization;
+using TahaCore.Serialization.TypeParsers;
 using Unity.VisualScripting.YamlDotNet.Core;
 
 namespace TahaCore.Config
@@ -14,10 +13,10 @@ namespace TahaCore.Config
     /// Only valid for properties of classes that inherit from <see cref="ConfigSection"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class UseParserAttribute : Attribute
+    public class ParseWithAttribute : Attribute
     {
         public Type ParserType { get; private set; }
-        public UseParserAttribute(Type parserType)
+        public ParseWithAttribute(Type parserType)
         {
             if (!typeof(ITypeParser).IsAssignableFrom(parserType))
             {

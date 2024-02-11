@@ -2,9 +2,12 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using System;
 
-namespace TahaCore.Serialization
+using System;
+using TahaCore.Serialization;
+using TahaCore.Serialization.TypeParsers;
+
+namespace TahaCore.Config.TypeDeserializers
 {
     /// <summary>
     /// Base class for parsers for vector types. Inherit this to create a new parser for a vector type..
@@ -23,24 +26,22 @@ namespace TahaCore.Serialization
         /// dimension of the vector.
         /// </summary>
         private readonly int m_dimension;
-        private ITypeParser m_elementTypeParser;
-        
+
         /// <summary>
         /// Inherited by the child class.
         /// </summary>
         /// <param name="dimension">Dimension of the vector.</param>
-        /// <param name="elementTypeParser"></param>
-        protected VectorTypeParser(int dimension, ITypeParser elementTypeParser)
+        /// <param name="elementTypeDeserializer"></param>
+        protected VectorTypeParser(int dimension)
         {
             m_dimension = dimension;
-            m_elementTypeParser = elementTypeParser;
             TargetType = typeof(TVectorType);
         }
         
         /// <summary>
         /// Parses the given string value to vector. If the value is null, default value is returned.
         /// </summary>
-        /// <param name="value">String value to parse.</param>
+        /// <param name="value">String value to parser.</param>
         /// <returns>Vector value of the given string.</returns>
         /// <exception cref="FormatException">If the given string is not a valid vector.</exception>
         public object Parse(string value)
@@ -63,7 +64,11 @@ namespace TahaCore.Serialization
             var vector = new TVectorDataType[m_dimension];
             for (var i = 0; i < m_dimension; i++)
             {
-                vector[i] = (TVectorDataType)m_elementTypeParser.Parse(split[i].Trim());
+                if (!CommonTypeParser.TryParsePrimitive(typeof(TVectorDataType), split[i].Trim(), out var parsed))
+                {
+                    throw new FormatException($"Invalid value to parser {nameof(TVectorType)}: {split[i]}.");
+                }
+                vector[i] = (TVectorDataType)parsed;
             }
 
             return CreateVector(vector);

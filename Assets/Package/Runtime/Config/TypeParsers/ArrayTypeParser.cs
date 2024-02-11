@@ -2,36 +2,35 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System;
+using TahaCore.Serialization;
+using TahaCore.Serialization.TypeParsers;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Serialization
+namespace TahaCore.Config.TypeParsers
 {
     /// <summary>
     /// Parses a string value to an array of objects. The string should be wrapped between
     /// square brackets and elements should be separated by commas.<br/>
     /// <br/>
-    /// Type of the array is determined by the given elementTypeParse parameter. For example: <br/>
-    /// When elementTypeParser is a DoubleTypeParser, the array will be an array of doubles.<br/>
+    /// Type of the array is determined by the given elementTypeParser parameter. For example: <br/>
+    /// When elementTypeParser is a DoubleTypeDeserializer, the array will be an array of doubles.<br/>
     /// </summary>
-    [TypeParserContextRegistry]
+    [ConfigTypeParser]
     [Preserve]
     internal sealed class ArrayTypeParser : ITypeParser
     {
         public Type TargetType { get;}
-        public bool CanBeArrayElement => false;
-        
-        private readonly ITypeParser m_elementTypeParser;
         private readonly Type m_elementType;
 
         /// <summary>
         /// Creates a new ArrayTypeParser with the given elementTypeParser.
         /// </summary>
-        /// <param name="elementTypeParser">Parser for the elements of this array.</param>
-        internal ArrayTypeParser(ITypeParser elementTypeParser)
+        /// <param name="elementType">Type of the elements of this array.</param>
+        internal ArrayTypeParser(Type elementType)
         {
-            m_elementType = elementTypeParser.TargetType;
-            m_elementTypeParser = elementTypeParser;
+            m_elementType = elementType;
             TargetType = m_elementType.MakeArrayType();
         }
 
@@ -80,7 +79,11 @@ namespace TahaCore.Serialization
         /// <exception cref="FormatException">Thrown if the given string cannot be parsed.</exception>
         private object ParseItem(string value)
         {
-            return m_elementTypeParser.Parse(value);
+            if(!CommonTypeParser.TryParsePrimitive(m_elementType, value, out var parsedValue))
+            {
+                throw new FormatException($"Cannot parse '{value}' to {m_elementType.Name}.");
+            }
+            return parsedValue;
         }
     }
 }
