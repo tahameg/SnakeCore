@@ -1,34 +1,30 @@
 ﻿using System;
+using TahaCore.DI;
 using Unity.Plastic.Newtonsoft.Json;
 
 namespace TahaCore.Serialization.JsonSerialization
 {
+    [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(IJsonSerializer))]
     public class TahaCoreJsonSerializer : IJsonSerializer
     {
-        private TahaCoreJsonConverter m_converter;
-        public TahaCoreJsonSerializer()
-        {
-            m_converter = new TahaCoreJsonConverter(new SerializationContext(),
-                new ParsingProvider(new JsonTypeParserLocator()));
-        }
         public T Deserialize<T>(string serialized)
         {
-            return JsonConvert.DeserializeObject<T>(serialized, m_converter);
+            return JsonConvert.DeserializeObject<T>(serialized);
         }
 
         public object Deserialize(string serialized)
         {
-            return JsonConvert.DeserializeObject(serialized, typeof(object), m_converter);
+            throw new NotImplementedException();
         }
 
         public string Serialize<T>(T obj)
         {
-            return JsonConvert.SerializeObject(obj, m_converter);
+            return JsonConvert.SerializeObject(obj);
         }
 
         public string Serialize(object obj)
         {
-            return JsonConvert.SerializeObject(obj, m_converter);
+            return JsonConvert.SerializeObject(obj);
         }
     }
 }
