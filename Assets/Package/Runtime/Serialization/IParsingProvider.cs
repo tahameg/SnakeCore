@@ -26,5 +26,7 @@ namespace TahaCore.Serialization
         /// <typeparam name="T">Type to parser the value to.</typeparam>
         /// <returns>Parsed value of the given string.</returns>
         T Parse<T>(string value);
+        
+        bool CanParse(Type targetType);
     }
 }

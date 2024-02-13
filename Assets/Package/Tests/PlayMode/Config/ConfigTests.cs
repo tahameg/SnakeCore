@@ -3,6 +3,7 @@ using NUnit.Framework;
 using TahaCore.Config;
 using TahaCore.DI;
 using TahaCore.Serialization;
+using TahaCore.Serialization.JsonSerialization;
 using TahaCore.Serialization.TypeParsers;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -20,6 +21,15 @@ namespace TahaCore.Tests.PlayMode.Config
         public void OneTimeSetup()
         {
             m_testConfig = Runtime.Container.Resolve(typeof(TestConfig)) as TestConfig;
+        }
+        
+        [Test]
+        public void SerializeBakiim()
+        {
+            var serializer = new TahaCoreJsonSerializer();
+            var serialized = serializer.Serialize(m_testConfig);
+            Debug.Log(serialized);
+            Assert.IsTrue(true);
         }
         
         [Test]

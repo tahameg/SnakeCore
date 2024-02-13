@@ -58,7 +58,6 @@ namespace TahaCore.Config
                 return;
             }
             string propertyName = attribute.PropertyName;
-            Debug.Log(propertyName);
             if (!m_section.TryGetValue(propertyName, out var propertyStringValue))
             {
                 TahaCoreApplicationRuntime.LogWarning($"No config value found for {m_sectionName}.{propertyName}");

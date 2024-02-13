@@ -89,7 +89,7 @@ namespace TahaCore.DI
         {
             IniConfigDeserializer configDeserializer = new IniConfigDeserializer();
             ITypeParserLocator typeParserLocator = new IniConfigTypeParserLocator();
-            IParsingProvider parsingProvider = new IniConfigParsingProvider(typeParserLocator);
+            IParsingProvider parsingProvider = new ParsingProvider(typeParserLocator);
             IniConfigValueProvider configValueProvider = new IniConfigValueProvider(parsingProvider, configDeserializer);
 
             if (!string.IsNullOrEmpty(AdditionalConfigData))

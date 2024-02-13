@@ -9,13 +9,13 @@ namespace TahaCore.Serialization
     /// <summary>
     /// Manages access to type parsers.
     /// </summary>
-    public abstract class BaseTypeParserLocator : ITypeParserLocator
+    public abstract class TypeParserLocator : ITypeParserLocator
     {
         private ICollection<ITypeParser> m_deserializers;
 
         private IDictionary<Type, ITypeParser> m_deserializersByType { get;}
 
-        public BaseTypeParserLocator()
+        public TypeParserLocator()
         {
             m_deserializers = new List<ITypeParser>();
             m_deserializersByType = new Dictionary<Type, ITypeParser>();
@@ -58,6 +58,16 @@ namespace TahaCore.Serialization
             }
             
             return null;
+        }
+        
+        /// <summary>
+        /// Returns true if a parser is registered for the given type.
+        /// </summary>
+        /// <param name="targetType">Type to check if a parser is registered for.</param>
+        /// <returns>Ture if a parser is registered for the given type, false otherwise.</returns>
+        public bool CanLocate(Type targetType)
+        {
+            return m_deserializersByType.ContainsKey(targetType);
         }
 
         /// <summary>

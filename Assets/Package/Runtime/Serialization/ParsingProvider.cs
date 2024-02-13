@@ -5,17 +5,20 @@
 
 using System;
 using TahaCore.DI;
-using TahaCore.Serialization;
+using TahaCore.Serialization.TypeParsers;
 
-namespace TahaCore.Config
+namespace TahaCore.Serialization
 {
     /// <summary>
     /// The implementation of IParsingProvider that handles deserializing of string values to a given type.
+    /// This implementation ignores <see cref="ITypeParser"/>s that targets primitive types that
+    /// are registered in the <see cref="ITypeParserLocator"/>.
+    /// Instead, it internally calls <see cref="CommonTypeParser.TryParsePrimitive"/> to parse primitive types.
     /// </summary>
-    public class IniConfigParsingProvider : IParsingProvider
+    internal class ParsingProvider : IParsingProvider
     {
         private readonly ITypeParserLocator m_typeParserLocator;
-        internal IniConfigParsingProvider(ITypeParserLocator typeParserLocator)
+        internal ParsingProvider(ITypeParserLocator typeParserLocator)
         {
             m_typeParserLocator = typeParserLocator;
         }
@@ -39,6 +42,11 @@ namespace TahaCore.Config
             //else
             TahaCoreApplicationRuntime.LogWarning($"No parser found for type {typeof(T).Name}");
             return default;
+        }
+
+        public bool CanParse(Type targetType)
+        {
+            return m_typeParserLocator.CanLocate(targetType) || CommonTypeParser.IsCommonType(targetType);
         }
     }
 }

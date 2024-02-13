@@ -27,5 +27,7 @@ namespace TahaCore.Serialization
         /// <typeparam name="T">Type of parser to get.</typeparam>
         /// <returns>Parser of type T. Null if no parser was found.</returns>
         ITypeParser GetParser<T>() where T : ITypeParser;
+        
+        bool CanLocate(Type targetType);
     }
 }

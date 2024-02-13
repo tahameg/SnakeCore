@@ -22,9 +22,9 @@ namespace TahaCore.Config
    /// Note that if there are multiple <see cref="ITypeParser"/>s that can deserialize the same type, the first one is used.
    /// </summary>
    [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-   internal class IniConfigTypeParserLocator : BaseTypeParserLocator
+   internal class IniConfigTypeParserLocator : TypeParserLocator
    {
-      private IDictionary<Type, ArrayTypeParser> m_elementTypeToArrayParser = new Dictionary<Type, ArrayTypeParser>();
+      private readonly IDictionary<Type, ArrayTypeParser> m_elementTypeToArrayParser = new Dictionary<Type, ArrayTypeParser>();
 
       /// <summary>
       /// Creates a new TypeParserContext and registers all <see cref="ITypeParser"/>s that are defined in all assemblies.
