@@ -8,7 +8,7 @@ namespace TahaCore.DI
 {
     public abstract class InjectableMonoBehaviour : MonoBehaviour
     {
-        private void Awake()
+        protected virtual void Awake()
         {
             TahaCoreApplicationRuntime.Instance.Container.Inject(this);
         }

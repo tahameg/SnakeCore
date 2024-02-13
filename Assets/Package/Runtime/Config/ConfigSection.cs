@@ -7,7 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using TahaCore.DI;
-using TahaCore.Serialization;
+using TahaCore.Serialization.TypeParsers;
+using UnityEngine;
 using VContainer;
 
 namespace TahaCore.Config
@@ -16,7 +17,7 @@ namespace TahaCore.Config
     {
         private readonly string m_sectionName;
         private readonly IReadOnlyDictionary<string, string> m_section;
-        private readonly ITypeParsingProvider m_typeParser;
+        private readonly IConfigValueProvider m_configValueProvider;
 
         protected ConfigSection()
         {
@@ -26,13 +27,12 @@ namespace TahaCore.Config
                 return;
             }
             var type = GetType();
-            m_typeParser = TahaCoreApplicationRuntime.Instance.Container.Resolve<ITypeParsingProvider>();
-            var configValueProvider = TahaCoreApplicationRuntime.Instance.Container.Resolve<IConfigValueProvider>();
-            
+            m_configValueProvider = TahaCoreApplicationRuntime.Instance.Container.Resolve<IConfigValueProvider>();
+
             var sectionAttribute = GetType().GetCustomAttribute<ConfigSectionAttribute>();
             
             m_sectionName = sectionAttribute == null ? GetType().Name : sectionAttribute.SectionName;
-            m_section = configValueProvider.GetSection(m_sectionName);
+            m_section = m_configValueProvider.GetSection(m_sectionName);
             if (m_section == null)
             {
                 TahaCoreApplicationRuntime.LogWarning($"No config section found for {m_sectionName} in the config " +
@@ -52,26 +52,25 @@ namespace TahaCore.Config
         private void ParseAndSet(PropertyInfo property)
         {
             ConfigPropertyAttribute attribute = property.GetCustomAttribute<ConfigPropertyAttribute>();
-            UseParserAttribute parserAttribute = property.GetCustomAttribute<UseParserAttribute>();
+            ParseWithAttribute deserializerAttribute = property.GetCustomAttribute<ParseWithAttribute>();
             if (attribute == null || !property.CanWrite)
             {
                 return;
             }
             string propertyName = attribute.PropertyName;
-               
             if (!m_section.TryGetValue(propertyName, out var propertyStringValue))
             {
                 TahaCoreApplicationRuntime.LogWarning($"No config value found for {m_sectionName}.{propertyName}");
                 return;
             }
             
-            if (parserAttribute != null)
+            if (deserializerAttribute != null)
             {
-                ParseWithParserAndSetValue(property, propertyStringValue, parserAttribute.ParserType);
+                ParseWithParserAndSetValue(property, propertyStringValue, deserializerAttribute.ParserType);
                 return;
             }
             
-            var propertyValue = m_typeParser.Parse(property.PropertyType, propertyStringValue);
+            var propertyValue = m_configValueProvider.GetParamValue(property.PropertyType, m_sectionName, propertyName);
             property.SetValue(this, propertyValue);
         }
         

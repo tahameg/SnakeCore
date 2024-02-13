@@ -24,7 +24,7 @@ namespace TahaCore.DI.ConfigConditions
             var section = configValueProvider.GetSection(m_section);
             if(section == null) return false;
             if (!section.ContainsKey(m_key)) return false;
-            return configValueProvider.GetParam<bool>(m_section, m_key) == m_expectedValue;
+            return configValueProvider.GetParamValue<bool>(m_section, m_key) == m_expectedValue;
         }
     }
 

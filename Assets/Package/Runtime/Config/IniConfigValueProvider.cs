@@ -2,6 +2,8 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Cysharp.Threading.Tasks;
@@ -33,20 +35,19 @@ namespace TahaCore.Config
         /// </summary>
         public bool IsInitialized => m_isInitialized;
         
-        private const string CONFIG_FILE_NAME = "config.ini";
+        private const string k_configFileName = "config.ini";
         private readonly IConfigDeserializer m_deserializer;
-        private readonly ITypeParsingProvider m_typeParsingProvider;
+        private readonly IParsingProvider m_parsingProvider;
         private bool m_isInitialized;
         private ConfigCollection m_config;
         private string PersistentDataConfigPath
-            => Path.Combine(Application.persistentDataPath, CONFIG_FILE_NAME);
-        
+            => Path.Combine(Application.persistentDataPath, k_configFileName);
         
         [Inject]
-        internal IniConfigValueProvider(ITypeParsingProvider typeParsingProvider, IConfigDeserializer deserializer)
+        internal IniConfigValueProvider(IParsingProvider parsingProvider, IConfigDeserializer deserializer)
         {
             m_deserializer = deserializer;
-            m_typeParsingProvider = typeParsingProvider;
+            m_parsingProvider = parsingProvider;
             Initialize();
         }
         
@@ -119,12 +120,20 @@ namespace TahaCore.Config
             return null;
         }
         
-        public T GetParam<T>(string sectionName, string key)
+        public T GetParamValue<T>(string sectionName, string key)
         {
             string value = GetParam(sectionName, key);
             if (value == null) return default;
-            return m_typeParsingProvider.Parse<T>(value);
+            return m_parsingProvider.Parse<T>(value);
         }
+
+        public object GetParamValue(Type type, string sectionName, string key)
+        {
+            string value = GetParam(sectionName, key);
+            if (value == null) return default;
+            return m_parsingProvider.Parse(type, value);
+        }
+
 
         private void Initialize()
         {
@@ -151,7 +160,7 @@ namespace TahaCore.Config
         
         private ConfigCollection CopyFromStreamingAssetsFileSystem()
         {
-            string fileName = Path.Combine(Application.streamingAssetsPath, CONFIG_FILE_NAME);
+            string fileName = Path.Combine(Application.streamingAssetsPath, k_configFileName);
             if(File.Exists(fileName))
             {
                 File.Copy(fileName, PersistentDataConfigPath, true);
@@ -163,7 +172,7 @@ namespace TahaCore.Config
         
         private ConfigCollection CopyFromStreamingAssetsWeb()
         {
-            UnityWebRequest www = UnityWebRequest.Get($"{Application.streamingAssetsPath}/{CONFIG_FILE_NAME}");
+            UnityWebRequest www = UnityWebRequest.Get($"{Application.streamingAssetsPath}/{k_configFileName}");
             www.timeout = 3; // This is absolutely expected to take less than 3 seconds in a local environment.
             var result = www.SendWebRequest().GetAwaiter().GetResult();
             if (result.result == UnityWebRequest.Result.Success)

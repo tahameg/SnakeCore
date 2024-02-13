@@ -27,7 +27,7 @@ namespace TahaCore.DI.ConfigConditions
         {
             try
             {
-                int value = configValueProvider.GetParam<int>(m_section, m_key);
+                int value = configValueProvider.GetParamValue<int>(m_section, m_key);
                 return EvaluateInt(value, m_compareValue, m_compareType);
             }
             catch (Exception)
