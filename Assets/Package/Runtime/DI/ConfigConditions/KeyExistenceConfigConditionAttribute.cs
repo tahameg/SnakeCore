@@ -6,6 +6,10 @@ using TahaCore.Config;
 
 namespace TahaCore.DI.ConfigConditions
 {
+    /// <summary>
+    /// Injects a concrete implementation if the given property name in the given property section
+    /// meets the existence criteria
+    /// </summary>
     public class KeyExistenceConfigConditionAttribute : ConfigConditionAttribute
     {
         private readonly string m_section;

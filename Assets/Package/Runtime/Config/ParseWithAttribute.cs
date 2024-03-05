@@ -4,7 +4,6 @@
 // =======================================================================
 using System;
 using TahaCore.Serialization.TypeParsers;
-using Unity.VisualScripting.YamlDotNet.Core;
 
 namespace TahaCore.Config
 {
@@ -20,7 +19,7 @@ namespace TahaCore.Config
         {
             if (!typeof(ITypeParser).IsAssignableFrom(parserType))
             {
-                throw new ArgumentException($"Parser type {parserType} is not assignable from {typeof(IParser)}");
+                throw new ArgumentException($"Parser type {parserType} is not assignable from {typeof(ITypeParser)}");
             }
             ParserType = parserType;
         }

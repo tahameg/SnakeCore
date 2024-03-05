@@ -7,6 +7,10 @@ using TahaCore.Config;
 
 namespace TahaCore.DI.ConfigConditions
 {
+    /// <summary>
+    /// Injects a concrete implementation if there is a int-parsable property in the given section in the config.ini
+    /// file and the value meets the given compare criteria.
+    /// </summary>
     public class IntValueConfigConditionAttribute : ConfigConditionAttribute
     {
         private readonly string m_section;

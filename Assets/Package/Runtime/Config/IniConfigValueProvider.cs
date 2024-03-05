@@ -154,7 +154,7 @@ namespace TahaCore.Config
             #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX
             return CopyFromStreamingAssetsFileSystem();
             #elif UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL
-            return await CopyFromStreamingAssetsWeb();
+            return CopyFromStreamingAssetsWeb();
             #endif
         }
         

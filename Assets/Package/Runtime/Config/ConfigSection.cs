@@ -13,6 +13,12 @@ using VContainer;
 
 namespace TahaCore.Config
 {
+    /// <summary>
+    /// Base class for ConfigSection Dtos. This Implementation automatically populates the classes that
+    /// inherit this base class with values that are given in the config.ini file.
+    /// For custom section names <see cref="ConfigSectionAttribute"/>
+    /// Name of the config properties are found from <see cref="ConfigPropertyAttribute"/> 
+    /// </summary>
     public abstract class ConfigSection
     {
         private readonly string m_sectionName;

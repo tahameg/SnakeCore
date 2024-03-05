@@ -9,6 +9,7 @@ using System.Collections.Generic;
 namespace TahaCore.Config
 {
     /// <summary>
+    /// Inject this for string-based config values.
     /// Provides Config values
     /// A config is consists of sections and each section contains key-value pairs.
     /// </summary>

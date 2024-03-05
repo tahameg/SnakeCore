@@ -4,6 +4,9 @@
 // =======================================================================
 namespace TahaCore.DI.ConfigConditions
 {
+    /// <summary>
+    /// Numeric value compare type.
+    /// </summary>
     public enum NumericValueCompareType
     {
         Equal,

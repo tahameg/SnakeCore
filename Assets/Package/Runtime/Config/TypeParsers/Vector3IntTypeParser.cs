@@ -3,11 +3,10 @@
 // Author: Taha Mert Gökdemir
 // =======================================================================
 
-using TahaCore.Serialization;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Config.TypeDeserializers
+namespace TahaCore.Config.TypeParsers
 {
     /// <summary>
     /// Parser for parsing Vector3Int from string. Use this to parser a string value to Vector3Int.<br/>

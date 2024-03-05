@@ -7,7 +7,7 @@ using System;
 using TahaCore.Serialization;
 using TahaCore.Serialization.TypeParsers;
 
-namespace TahaCore.Config.TypeDeserializers
+namespace TahaCore.Config.TypeParsers
 {
     /// <summary>
     /// Base class for parsers for vector types. Inherit this to create a new parser for a vector type..

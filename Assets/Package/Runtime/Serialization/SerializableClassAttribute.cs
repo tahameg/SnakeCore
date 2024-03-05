@@ -2,7 +2,10 @@
 
 namespace TahaCore.Serialization
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
+    /// <summary>
+    /// Created to provide functionality of System.Serializable specific to TahaCore
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     public class SerializableClassAttribute : Attribute
     {
     }

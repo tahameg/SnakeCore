@@ -26,7 +26,7 @@ namespace TahaCore.Tests.PlayMode.Config
         [Test]
         public void SerializeBakiim()
         {
-            var serializer = new TahaCoreJsonSerializer();
+            var serializer = new UnityJsonSerializer();
             var serialized = serializer.Serialize(m_testConfig);
             Debug.Log(serialized);
             Assert.IsTrue(true);

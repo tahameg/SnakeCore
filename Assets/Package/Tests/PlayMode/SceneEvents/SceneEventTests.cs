@@ -1,7 +1,5 @@
 using NUnit.Framework;
 using TahaCore.Scene;
-using TahaCore.Tests.PlayMode.DI;
-using UnityEngine;
 
 namespace TahaCore.Tests.PlayMode.SceneEvents
 {

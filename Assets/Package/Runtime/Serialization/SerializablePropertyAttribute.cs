@@ -2,6 +2,9 @@
 
 namespace TahaCore.Serialization
 {
+    /// <summary>
+    /// Created to provide functionality of JsonProperty of NewtonSoft.Json.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class SerializablePropertyAttribute : Attribute
     {

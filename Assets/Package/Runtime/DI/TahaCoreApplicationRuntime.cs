@@ -56,7 +56,6 @@ namespace TahaCore.DI
             if (Instance != null)
             {
                 Destroy(gameObject);
-                LogError("There is already an instance of TahaCoreApplicationRuntime in the scene.");
                 return;
             }
 

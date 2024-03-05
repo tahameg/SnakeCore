@@ -3,7 +3,7 @@
 namespace TahaCore.Tests.PlayMode.TestBoot
 {
     [TestFixture]
-    public class RuntimeTestBootTest : RuntimeTestBoot
+    public class RuntimeTestBoot : PlayMode.RuntimeTestBoot
     {
 
         protected override string AdditionalConfig { get; } = null;

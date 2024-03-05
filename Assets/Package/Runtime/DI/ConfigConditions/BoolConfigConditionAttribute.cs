@@ -6,6 +6,10 @@ using TahaCore.Config;
 
 namespace TahaCore.DI.ConfigConditions
 {
+    /// <summary>
+    /// Injects a implementation to the DI framework if there is a boolean-parsable config property
+    /// exists and it is equal to the expectedValue in the config.ini file.
+    /// </summary>
     public class BoolConfigConditionAttribute : ConfigConditionAttribute
     {
         private readonly string m_section;

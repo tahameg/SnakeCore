@@ -4,8 +4,12 @@
 // =======================================================================
 namespace TahaCore.DI.ConfigConditions
 {
+    /// <summary>
+    /// Existence comparision types
+    /// </summary>
     public enum ExistenceCompareType
     {
+
         Exists,
         NotExists
     }
