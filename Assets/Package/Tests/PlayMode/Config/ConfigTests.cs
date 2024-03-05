@@ -22,16 +22,7 @@ namespace TahaCore.Tests.PlayMode.Config
         {
             m_testConfig = Runtime.Container.Resolve(typeof(TestConfig)) as TestConfig;
         }
-        
-        [Test]
-        public void SerializeBakiim()
-        {
-            var serializer = new UnityJsonSerializer();
-            var serialized = serializer.Serialize(m_testConfig);
-            Debug.Log(serialized);
-            Assert.IsTrue(true);
-        }
-        
+
         [Test]
         public void ConfigSectionPrimitivesTest()
         {
