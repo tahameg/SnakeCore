@@ -7,7 +7,10 @@
 
 # TahaCore
 
-**TahaCore** is a Unity codebase designed to enhance software development practices by offering utilities that facilitate dependency injection, serialization, ini-based configurations, and event bus communications. Aimed at Unity developers, TahaCore simplifies common tasks, enabling cleaner, more maintainable, and scalable project structures.
+**TahaCore** is a Unity codebase designed to enhance software development practices by offering utilities that 
+facilitate dependency injection, serialization, ini-based configurations, and event bus communications.
+Aimed at Unity developers, TahaCore simplifies common tasks, enabling cleaner, more maintainable, 
+and scalable project structures.
 
 ## Features
 
