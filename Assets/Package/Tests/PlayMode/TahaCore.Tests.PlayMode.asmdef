@@ -9,7 +9,6 @@
         "UnityEditor.TestRunner"
     ],
     "includePlatforms": [
-        "Android",
         "Editor",
         "WindowsStandalone32",
         "WindowsStandalone64"

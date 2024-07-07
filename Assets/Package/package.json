@@ -1,6 +1,6 @@
 {
     "name": "com.sparkvisionxr.tahacore",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "displayName": "TahaCore",
     "description": "The package that includes core functionality like concurrency and dependency injection.",
     "unity": "2021.3",
