@@ -2,10 +2,11 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using System;
-using TahaCore.Config;
 
-namespace TahaCore.DI.ConfigConditions
+using System;
+using SnakeCore.Config;
+
+namespace SnakeCore.DI.ConfigConditions
 {
     /// <summary>
     /// Base class that provide functionality of Config-based dependency injection.

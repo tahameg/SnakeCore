@@ -2,6 +2,7 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Text;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Config Deserializer for INI format.

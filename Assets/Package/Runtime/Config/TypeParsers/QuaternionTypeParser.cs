@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace TahaCore.Config.TypeParsers
+namespace SnakeCore.Config.TypeParsers
 {
     /// <summary>
     /// Parser for parsing Quaternion from string. Use this to parser a string value to Quaternion.

@@ -6,7 +6,7 @@
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Config.TypeParsers
+namespace SnakeCore.Config.TypeParsers
 {
     /// <summary>
     /// Parser for parsing Vector3 from string. Use this to parser a string value to Vector3.<br/>

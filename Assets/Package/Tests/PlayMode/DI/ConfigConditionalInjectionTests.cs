@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using TahaCore.DI;
-using TahaCore.DI.ConfigConditions;
+using SnakeCore.DI;
+using SnakeCore.DI.ConfigConditions;
 using VContainer;
 
 namespace TahaCore.Tests.PlayMode.DI

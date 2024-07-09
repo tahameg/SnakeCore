@@ -1,4 +1,4 @@
-﻿using TahaCore.DI;
+﻿using SnakeCore.DI;
 using VContainer;
 
 namespace ScopingTests

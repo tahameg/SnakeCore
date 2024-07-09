@@ -1,4 +1,4 @@
-﻿namespace TahaCore.DI
+﻿namespace SnakeCore.DI
 {
     /// <summary>
     /// Interface for resolving implementations from the DI framework at runtime.

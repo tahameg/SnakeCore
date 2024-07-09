@@ -1,4 +1,4 @@
-namespace TahaCore.Scene
+namespace SnakeCore.Scene
 {
     /// <summary>
     /// Publishes scene events to subscribers. <seealso cref="ISceneEventProvider"/>

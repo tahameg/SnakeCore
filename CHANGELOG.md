@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2024-07-09
+### Added
+- IJSonSerializer has been implemented and is able to serialize and deserialize to unknown types based 
+on the type information provided in the json.
+- ConfigSection now falls back to the json deserializer if the value cannot be parsed to the primitive types. At this
+mode, arrays and json objects are supported.
+- TypeParser-based mechanism for customizing the way primitives are parsed has been abandoned. All primitive type parsing 
+operations are now handled by `PrimitiveSerialization` static class.
+- Name of the project has been changed to `SnakeCore`.
+
 ## [0.2.2] - 2024-01-25
 ### Added
 - IJSonSerializer is declared and UnityJsonSerializer is implemented as default implementation.

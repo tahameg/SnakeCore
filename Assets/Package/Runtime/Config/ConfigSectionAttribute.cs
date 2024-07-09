@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class ConfigSectionAttribute : Attribute

@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using TahaCore.DI;
 
-namespace TahaCore.Logging
+using SnakeCore.DI;
+
+namespace SnakeCore.Logging
 {
     /// <summary>
     /// TahaCoreLogger is a simple logger that uses Unity's Debug.Log, Debug.LogWarning and Debug.LogError

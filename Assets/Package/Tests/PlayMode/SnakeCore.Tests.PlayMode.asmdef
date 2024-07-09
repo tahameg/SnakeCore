@@ -1,12 +1,12 @@
 {
-    "name": "TahaCore.Tests.PlayMode",
-    "rootNamespace": "TahaCore.Tests.PlayMode",
+    "name": "SnakeCore.Tests.PlayMode",
+    "rootNamespace": "SnakeCore.Tests.PlayMode",
     "references": [
-        "TahaCore",
         "VContainer",
         "UniTask",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "SnakeCore"
     ],
     "includePlatforms": [
         "Editor",
@@ -17,7 +17,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

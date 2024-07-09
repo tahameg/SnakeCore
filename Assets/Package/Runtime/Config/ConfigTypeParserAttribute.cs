@@ -5,7 +5,7 @@
 
 using System;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// ConfigTypeParserAttribute is used to mark a class to be registered to the IniConfigTypeParserLocator.

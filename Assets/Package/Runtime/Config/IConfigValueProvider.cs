@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Inject this for string-based config values.

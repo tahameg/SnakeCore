@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using TahaCore.Scene;
+using SnakeCore.Scene;
 
 namespace TahaCore.Tests.PlayMode.SceneEvents
 {

@@ -1,16 +1,18 @@
 {
-    "name": "com.sparkvisionxr.tahacore",
-    "version": "0.2.3",
-    "displayName": "TahaCore",
+    "name": "com.snakelikecoding.snakecore",
+    "version": "1.0.0",
+    "displayName": "SnakeCore",
     "description": "The package that includes core functionality like concurrency and dependency injection.",
     "unity": "2021.3",
-    "licensesUrl": "https://github.com/tahameg/TahaCore/Licences",
+    "licensesUrl": "https://github.com/tahameg/SnakeCore/Licences",
     "dependencies": {
       "jp.hadashikick.vcontainer": "1.13.2",
-      "com.cysharp.unitask": "2.5.0"
+      "com.cysharp.unitask": "2.5.0",
+      "com.unity.nuget.newtonsoft-json" : "3.2.1"
     },
     "author": {
       "name": "Taha Mert Gökdemir",
       "email": "taha.m.gokdemir@gmail.com"
-    }
+    },
+    "license": "MIT"
   }

@@ -2,10 +2,11 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using System;
-using TahaCore.Config;
 
-namespace TahaCore.DI.ConfigConditions
+using System;
+using SnakeCore.Config;
+
+namespace SnakeCore.DI.ConfigConditions
 {
     /// <summary>
     /// Injects a concrete implementation if there is a int-parsable property in the given section in the config.ini

@@ -1,4 +1,4 @@
-﻿namespace TahaCore.DI
+﻿namespace SnakeCore.DI
 {
     /// <summary>
     /// TahaCore Dependency Injector.
@@ -9,7 +9,7 @@
     {
         public void Inject(object obj)
         {
-            TahaCoreApplicationRuntime.Instance.Container.Inject(obj);
+            SnakeCoreApplicationRuntime.Instance.Container.Inject(obj);
         }
     }
 }

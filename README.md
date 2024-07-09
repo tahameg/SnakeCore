@@ -5,11 +5,11 @@
 ![Unity](https://img.shields.io/badge/Unity-2022.3.4f1-black.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-# TahaCore
+# SnakeCore
 
-**TahaCore** is a Unity codebase designed to enhance software development practices by offering utilities that 
+**SnakeCore** is a Unity codebase designed to enhance software development practices by offering utilities that 
 facilitate dependency injection, serialization, ini-based configurations, and event bus communications.
-Aimed at Unity developers, TahaCore simplifies common tasks, enabling cleaner, more maintainable, 
+Aimed at Unity developers, SnakeCore simplifies common tasks, enabling cleaner, more maintainable, 
 and scalable project structures.
 
 ## Features
@@ -23,7 +23,7 @@ and scalable project structures.
 
 ## Installation
 
-1. Download TahaCore.
+1. Download SnakeCore.
 2. Copy the following scoped registries to your project's `Packages/manifest.json` file:
     ```json
     {
@@ -33,14 +33,15 @@ and scalable project structures.
           "url": "https://package.openupm.com",
           "scopes": [
             "jp.hadashikick.vcontainer",
-            "com.cysharp.unitask"
+            "com.cysharp.unitask",
+            "com.snakelikecoding.snakecore"
           ]
         }
       ]
     }
     ```
 3. Go to the package manager in Unity. Click on the `+` button and select `Add package from disk...`.
-4. Select the `package.json` file in the Assets/Package folder of TahaCore.
+4. Select the `package.json` file in the Assets/Package folder of SnakeCore.
 5. Verify that all project dependencies are met.
 
 ## Usage
@@ -48,12 +49,13 @@ and scalable project structures.
 ### Dependency Injection
 
 Dependency injection is a software design pattern that promotes loose coupling and modularity.
-TahaCore is built on top a flexible and efficient dependency injection mechanism that provides:
+SnakeCore is built on top a flexible and efficient dependency injection mechanism that provides:
 
 - **Attribute-based Injection**: Use attributes to inject dependencies into your classes which makes
   easier to configure IoC container.
-- **Registering with concrete types**: Registering concrete types to the IoC container directly will ensure implementation will
-  ensure that dependencies are resolved correctly. This approach also simplifies creation of singletons without hiding the dependencies.
+- **Registering with concrete types**: Registering concrete types is not suggested for most cases since it 
+harms the abstraction. On the other hand, this approach is better alternative to the singletons since 
+this approach doesn't hide the class depencencies.
    ```csharp
       public interface ISerializer
       {
@@ -137,7 +139,7 @@ TahaCore is built on top a flexible and efficient dependency injection mechanism
   into your object. This is particularly useful when you need to inject dependencies to
   objects that are created at runtime.
    ```csharp
-   public class PolledFactory<Enemy> : Factory
+   public class Factory<Enemy> : Factory
    {
        [Inject] private readonly IInjector _injector;
             
@@ -149,10 +151,11 @@ TahaCore is built on top a flexible and efficient dependency injection mechanism
        }
    }
    ```
+DI is built on top of [VContainer](https://vcontainer.hadashikick.jp/). Check out for detailed documentation.
 
 ### Ini-based Configuration
 
-In addition to ini-based injection, TahaCore provides utilities for accessing
+In addition to ini-based injection, SnakeCore provides utilities for accessing
 ini properties and sections. This feature allows user to store and retrieve
 data efficiently at runtime.
 
@@ -233,7 +236,7 @@ There are currently two ways to access ini properties and sections:
     }
 ```
 ### Logging
-- TahaCore provides a simple logging interface that can be used to log messages.
+- SnakeCore provides a simple logging interface that can be used to log messages.
 - The purpose of this interface is replacing Debug.Log, Debug.LogWarning and Debug.LogError
   and providing a customizable logging mechanism.
 ```csharp
@@ -248,38 +251,37 @@ There are currently two ways to access ini properties and sections:
         }
     }
 ```
-- Logging can be directly performed with `TahaCoreApplicationRuntime.Log` api as well.
+
+- Logging can be directly performed with `SnakeCoreApplicationRuntime.Log` api as well.
 ```csharp
     public class TestLogger : InjectableMonoBehaviour
     {
         private void Start()
         {
-            TahaCoreApplicationRuntime.LogInfo("This is a log message");
-            TahaCoreApplicationRuntime.LogWarning("This is a warning message");
-            TahaCoreApplicationRuntime.LogError("This is an error message");
+            SnakeCoreApplicationRuntime.LogInfo("This is a log message");
+            SnakeCoreApplicationRuntime.LogWarning("This is a warning message");
+            SnakeCoreApplicationRuntime.LogError("This is an error message");
         }
     }
 ```
 ### Serialization (In progress)
-- TahaCore provides a simple serialization and deserialization mechanism for deserializing unknown types.
-#### Why is this needed?
-In order to deserialize a type, to what type the data will be deserialized
-must be known at compile time. This prevents implementing polymorphic mechanisms that utilize polymorphism.
+- SnakeCore provides a simple serialization and deserialization mechanism for deserializing unknown types. This
+allows polymorphic serialization where target type which the data will be deserialized to is specified by the data itself.
+(See `IJsonSerializer`)
 
-Lets consider this example:
-You want to develop a command mechanism where commands are provided from a web service.
-The received json data meant to be deserialized to any type that implements `ICommand` interface.
-Parameters of the command are the payload of the json data. In this case it is impossible
-to know what `ICommand` implementation will be created with the received data
-at runtime unless there is a field in the received json data that specifies the type of
-the command. The mechanism that is provided by TahaCore (will) allow deserializing
-the received data with an api like `_deserializer.Deserialize<ICommand>(receivedData)`.
 ```csharp
     public interface ICommand 
     {
         void Execute();
     }
     
+    /*
+    {
+        "$type" : "SomeGameProject.CommandA",
+        "Force" : 10.0,
+        "Acceleration" : 5.0
+    } 
+    */
     //Serializable type
     public class CommandA : ICommand
     {   
@@ -295,6 +297,13 @@ the received data with an api like `_deserializer.Deserialize<ICommand>(received
         }
     }
     
+    /*
+    {
+        "$type" : "SomeGameProject.CommandB",
+        "Duration" : 12.0,
+        "Interval" : 0.5
+    } 
+    */
     //Serializable type
     public class CommandB : ICommand
     {   
@@ -316,11 +325,15 @@ the received data with an api like `_deserializer.Deserialize<ICommand>(received
         
         private UniTask ReceiveCommand()
         {
+           // Web service provides a command data in json format.
            var data = await GetCommandDataFromWebService();
+            
+           // Since the deserialization happens based on the `$Type` parameter,
+           // the behaviour is specified at run-time by the data.
            var command = (ICommand)_deserializer.Deserialize(data); 
            if(command == null)
            {
-               TahaCoreApplicationRuntime.LogError("Deserialization failed");
+               SnakeCoreApplicationRuntime.LogError("Deserialization failed");
            }
            command.Execute();
         }
@@ -330,10 +343,10 @@ the received data with an api like `_deserializer.Deserialize<ICommand>(received
 
 ## Running Tests
 
-TahaCore includes a suite of tests to ensure feature reliability. To run these tests:
+SnakeCore includes a suite of tests to ensure feature reliability. To run these tests:
 
 1. Open the Unity Test Runner.
-2. Select `PlayMode` tests for TahaCore.
+2. Select `PlayMode` tests for SnakeCore.
 3. Execute the tests to verify functionality.
 
 ## Dependencies
@@ -344,4 +357,4 @@ TahaCore includes a suite of tests to ensure feature reliability. To run these t
 
 ## License
 
-TahaCore is available under the MIT License. See [License](Licenses/LICENSE) for more information.
+SnakeCore is available under the MIT License. See [License](Licenses/LICENSE) for more information.

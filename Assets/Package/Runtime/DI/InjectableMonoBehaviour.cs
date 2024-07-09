@@ -2,15 +2,16 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using UnityEngine;
 
-namespace TahaCore.DI
+namespace SnakeCore.DI
 {
     public abstract class InjectableMonoBehaviour : MonoBehaviour
     {
         protected virtual void Awake()
         {
-            TahaCoreApplicationRuntime.Instance.Container.Inject(this);
+            SnakeCoreApplicationRuntime.Instance.Container.Inject(this);
         }
     }
 }

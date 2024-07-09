@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TahaCore.Serialization
+namespace SnakeCore.Serialization
 {
     /// <summary>
     /// Created to provide functionality of JsonProperty of NewtonSoft.Json.

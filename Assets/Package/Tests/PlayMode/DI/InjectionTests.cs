@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TahaCore.DI;
+using SnakeCore.DI;
 
 namespace TahaCore.Tests.PlayMode.DI
 {

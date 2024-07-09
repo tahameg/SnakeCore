@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using TahaCore.Config;
 
-namespace TahaCore.DI.ConfigConditions
+using SnakeCore.Config;
+
+namespace SnakeCore.DI.ConfigConditions
 {
     /// <summary>
     /// Injects a concrete implementation if the given property name in the given property section

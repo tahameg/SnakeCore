@@ -2,19 +2,21 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TahaCore.Config;
-using TahaCore.DI.ConfigConditions;
-using TahaCore.Logging;
-using TahaCore.Reflection;
-using TahaCore.Serialization;
+using SnakeCore.Config;
+using SnakeCore.DI.ConfigConditions;
+using SnakeCore.Logging;
+using SnakeCore.Reflection;
+using SnakeCore.Serialization;
+using SnakeCore.Serialization.JsonSerialization;
 using VContainer;
 using VContainer.Unity;
-using ILogger = TahaCore.Logging.ILogger;
+using ILogger = SnakeCore.Logging.ILogger;
 
-namespace TahaCore.DI
+namespace SnakeCore.DI
 {
     /// <summary>
     /// The main runtime scope of the application. This is the root scope that registers all the application
@@ -24,9 +26,9 @@ namespace TahaCore.DI
     /// - Provides <see cref="ConfigConditionAttribute"/> to conditionally register types.<br/>
     /// - Provides Logger functionality. See <see cref="ILogger"/>.
     /// </summary>
-    public class TahaCoreApplicationRuntime : LifetimeScope
+    public class SnakeCoreApplicationRuntime : LifetimeScope
     {
-        internal static TahaCoreApplicationRuntime Instance { get; private set; }
+        internal static SnakeCoreApplicationRuntime Instance { get; private set; }
         internal static string AdditionalConfigData;
         private ILogger m_logger;
         private IConfigValueProvider m_configValueProvider;
@@ -87,8 +89,9 @@ namespace TahaCore.DI
         private void RegisterConfigManager(IContainerBuilder builder)
         {
             IniConfigDeserializer configDeserializer = new IniConfigDeserializer();
-            ITypeParserLocator typeParserLocator = new IniConfigTypeParserLocator();
-            IParsingProvider parsingProvider = new ParsingProvider(typeParserLocator);
+            ISerializationContext serializationContext = new SerializationContext();
+            IJsonSerializer jsonSerializer = new NewtonsoftJsonSerializer(serializationContext);
+            IParsingProvider parsingProvider = new ParsingProvider(jsonSerializer);
             IniConfigValueProvider configValueProvider = new IniConfigValueProvider(parsingProvider, configDeserializer);
 
             if (!string.IsNullOrEmpty(AdditionalConfigData))
@@ -98,6 +101,9 @@ namespace TahaCore.DI
             
             builder.RegisterInstance(configDeserializer).As<IConfigDeserializer>();
             builder.RegisterInstance(configValueProvider).As<IConfigValueProvider>();
+            builder.RegisterInstance(serializationContext).As<ISerializationContext>();
+            builder.RegisterInstance(jsonSerializer).As<IJsonSerializer>();
+            builder.RegisterInstance(parsingProvider).As<IParsingProvider>();
             m_configValueProvider = configValueProvider;
         }
         

@@ -1,6 +1,6 @@
 {
-    "name": "TahaCore",
-    "rootNamespace": "TahaCore",
+    "name": "SnakeCore",
+    "rootNamespace": "SnakeCore",
     "references": [
         "UniTask",
         "UniTask.Addressables",

@@ -2,10 +2,11 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System;
 using System.Collections.Generic;
 
-namespace TahaCore.DI
+namespace SnakeCore.DI
 {
     /// <summary>
     /// Includes validated information about a registration.

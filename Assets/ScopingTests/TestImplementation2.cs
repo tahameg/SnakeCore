@@ -1,5 +1,5 @@
-﻿using TahaCore.DI;
-using TahaCore.DI.ConfigConditions;
+﻿using SnakeCore.DI;
+using SnakeCore.DI.ConfigConditions;
 
 namespace ScopingTests
 {
@@ -9,7 +9,7 @@ namespace ScopingTests
     {
         public void SayMyName()
         {
-            TahaCoreApplicationRuntime.LogInfo("I am the second test implementation");
+            SnakeCoreApplicationRuntime.LogInfo("I am the second test implementation");
         }
     }
 }
