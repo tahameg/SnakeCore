@@ -5,6 +5,7 @@
 ![Unity](https://img.shields.io/badge/Unity-2022.3.4f1-black.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+![Banner](SnakeCoreBanner.png)
 # SnakeCore
 
 **SnakeCore** is a Unity codebase designed to enhance software development practices by offering utilities that 
