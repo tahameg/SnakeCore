@@ -37,7 +37,7 @@ namespace SnakeCore.Serialization
                 //ignore
             }
             
-            SakeCoreApplicationRuntime.LogWarning($"Failed to parse {value} to {targetType.Name} using JsonDeserializer");
+            SnakeCoreApplicationRuntime.LogWarning($"Failed to parse {value} to {targetType.Name} using JsonDeserializer");
             return null;
         }
         
@@ -53,7 +53,7 @@ namespace SnakeCore.Serialization
                 //ignore
             }
             
-            SakeCoreApplicationRuntime.LogWarning($"No parser found for type {typeof(T).Name}");
+            SnakeCoreApplicationRuntime.LogWarning($"No parser found for type {typeof(T).Name}");
             return default;
         }
 

@@ -9,7 +9,7 @@
     {
         public void Inject(object obj)
         {
-            SakeCoreApplicationRuntime.Instance.Container.Inject(obj);
+            SnakeCoreApplicationRuntime.Instance.Container.Inject(obj);
         }
     }
 }

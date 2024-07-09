@@ -9,7 +9,7 @@ namespace ScopingTests
     {
         public void SayMyName()
         {
-            SakeCoreApplicationRuntime.LogInfo("I am the first test implementation");
+            SnakeCoreApplicationRuntime.LogInfo("I am the first test implementation");
         }
     }
 }

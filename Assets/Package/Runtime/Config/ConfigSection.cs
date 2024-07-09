@@ -26,13 +26,13 @@ namespace SnakeCore.Config
 
         protected ConfigSection()
         {
-            if (SakeCoreApplicationRuntime.Instance == null)
+            if (SnakeCoreApplicationRuntime.Instance == null)
             {
-                SakeCoreApplicationRuntime.LogError("SakeCoreApplicationRuntime is not initialized");
+                SnakeCoreApplicationRuntime.LogError("SnakeCoreApplicationRuntime is not initialized");
                 return;
             }
             var type = GetType();
-            m_configValueProvider = SakeCoreApplicationRuntime.Instance.Container.Resolve<IConfigValueProvider>();
+            m_configValueProvider = SnakeCoreApplicationRuntime.Instance.Container.Resolve<IConfigValueProvider>();
 
             var sectionAttribute = GetType().GetCustomAttribute<ConfigSectionAttribute>();
             
@@ -40,7 +40,7 @@ namespace SnakeCore.Config
             m_section = m_configValueProvider.GetSection(m_sectionName);
             if (m_section == null)
             {
-                SakeCoreApplicationRuntime.LogWarning($"No config section found for {m_sectionName} in the config " +
+                SnakeCoreApplicationRuntime.LogWarning($"No config section found for {m_sectionName} in the config " +
                                                       $"file. Properties of the section {type.Name} will be invalid.");
                 return;
             }
@@ -65,7 +65,7 @@ namespace SnakeCore.Config
             string propertyName = attribute.PropertyName;
             if (!m_section.TryGetValue(propertyName, out var propertyStringValue))
             {
-                SakeCoreApplicationRuntime.LogWarning($"No config value found for {m_sectionName}.{propertyName}");
+                SnakeCoreApplicationRuntime.LogWarning($"No config value found for {m_sectionName}.{propertyName}");
                 return;
             }
             

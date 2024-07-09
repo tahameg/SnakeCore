@@ -11,7 +11,7 @@ namespace SnakeCore.DI
     {
         protected virtual void Awake()
         {
-            SakeCoreApplicationRuntime.Instance.Container.Inject(this);
+            SnakeCoreApplicationRuntime.Instance.Container.Inject(this);
         }
     }
 }

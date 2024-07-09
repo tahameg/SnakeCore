@@ -51,7 +51,7 @@ namespace SnakeCore.Scene
             {
                 if (subscribers.Contains(action))
                 {
-                    SakeCoreApplicationRuntime.LogWarning($"Action {action} already subscribed to {sceneEventType}");
+                    SnakeCoreApplicationRuntime.LogWarning($"Action {action} already subscribed to {sceneEventType}");
                     return;
                 }
                 subscribers.Add(action);

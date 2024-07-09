@@ -56,7 +56,7 @@ namespace SnakeCore.Config
         {
             if (!m_isInitialized)
             {
-                SakeCoreApplicationRuntime.LogError("ConfigManager is not initialized");
+                SnakeCoreApplicationRuntime.LogError("ConfigManager is not initialized");
                 return;
             }
             
@@ -97,7 +97,7 @@ namespace SnakeCore.Config
         {
             if (!m_isInitialized)
             {
-                SakeCoreApplicationRuntime.LogWarning("ConfigManager is not initialized");
+                SnakeCoreApplicationRuntime.LogWarning("ConfigManager is not initialized");
                 return null;
             }
             
@@ -166,7 +166,7 @@ namespace SnakeCore.Config
                 File.Copy(fileName, PersistentDataConfigPath, true);
                 return m_deserializer.Deserialize(File.OpenRead(PersistentDataConfigPath));
             }
-            SakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
+            SnakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
             return CreateConfig();
         }
         
@@ -182,7 +182,7 @@ namespace SnakeCore.Config
                 File.WriteAllTextAsync(PersistentDataConfigPath, data);
                 return configToReturn;
             }
-            SakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
+            SnakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
             return CreateConfig();
         }
         

@@ -1,6 +1,6 @@
 {
-    "name": "TahaCore.Tests.PlayMode",
-    "rootNamespace": "TahaCore.Tests.PlayMode",
+    "name": "SnakeCore.Tests.PlayMode",
+    "rootNamespace": "SnakeCore.Tests.PlayMode",
     "references": [
         "VContainer",
         "UniTask",
@@ -9,7 +9,9 @@
         "SnakeCore"
     ],
     "includePlatforms": [
-        "Editor"
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

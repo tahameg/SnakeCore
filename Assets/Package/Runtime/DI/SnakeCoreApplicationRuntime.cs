@@ -26,9 +26,9 @@ namespace SnakeCore.DI
     /// - Provides <see cref="ConfigConditionAttribute"/> to conditionally register types.<br/>
     /// - Provides Logger functionality. See <see cref="ILogger"/>.
     /// </summary>
-    public class SakeCoreApplicationRuntime : LifetimeScope
+    public class SnakeCoreApplicationRuntime : LifetimeScope
     {
-        internal static SakeCoreApplicationRuntime Instance { get; private set; }
+        internal static SnakeCoreApplicationRuntime Instance { get; private set; }
         internal static string AdditionalConfigData;
         private ILogger m_logger;
         private IConfigValueProvider m_configValueProvider;
