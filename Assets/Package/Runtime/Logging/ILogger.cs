@@ -2,7 +2,7 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-namespace TahaCore.Logging
+namespace SnakeCore.Logging
 {
     /// <summary>
     /// The interface for logging.

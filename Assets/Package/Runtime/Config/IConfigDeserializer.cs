@@ -2,11 +2,12 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System.IO;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Deserializes config files to a dictionary.

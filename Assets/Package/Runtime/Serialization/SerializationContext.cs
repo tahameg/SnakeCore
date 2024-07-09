@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using TahaCore.DI;
-using TahaCore.Reflection;
+using SnakeCore.Reflection;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Serialization
+namespace SnakeCore.Serialization
 {
-    [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
     [Preserve]
-    public class SerializationContext
+    public class SerializationContext : ISerializationContext
     {
-        private IReadOnlyDictionary<Type, SerializationInfo> SerializationInfos { get; set; }
+        private IReadOnlyDictionary<Type, SerializationInfo> m_serializationInfos;
 
         public SerializationContext()
         {
@@ -20,48 +17,19 @@ namespace TahaCore.Serialization
             PopulateSerializationInfos(serializableTypes);
         }
         
-        public SerializationInfo GetSerializationInfo(Type type)
+        public bool TryGetSerializationInfo(Type type, out SerializationInfo serializationInfo)
         {
-            if (SerializationInfos.TryGetValue(type, out var serializationInfo))
-            {
-                return serializationInfo;
-            }
-            throw new ArgumentException($"Type {type} is not serializable.");
+            return m_serializationInfos.TryGetValue(type, out serializationInfo);
         }
         
-        public PropertyInfo GetSerializablePropertyBySerializationName(Type type, string serializationName)
+        public bool IsSerializable(Type type)
         {
-            var serializationInfo = GetSerializationInfo(type);
-            if (serializationInfo.SerializableProperties.TryGetValue(serializationName, out var property))
-            {
-                return property;
-            }
-
-            return null;
+            return m_serializationInfos.ContainsKey(type);
         }
         
-        public KeyValuePair<string, PropertyInfo> GetSerializablePropertyByName(Type type, string propertyName)
-        {
-            var serializationInfo = GetSerializationInfo(type);
-            var val = serializationInfo.SerializableProperties
-                .FirstOrDefault(keyValue => keyValue.Value.Name == propertyName);
-
-            return val;
-        }
-        
-        public bool IsRegistered(Type type)
-        {
-            return SerializationInfos.ContainsKey(type);
-        }
-
         private bool IsSerializableClass(Type type)
         {
-            //Return false if type is null
-            if (type == null) return false;
-            
-            // Can be serialized if it has SerializableClassAttribute and is not abstract or interface
-            var attribute = type.GetCustomAttribute<SerializableClassAttribute>();
-            return attribute != null && !type.IsAbstract && !type.IsInterface;
+            return type.IsDefined(typeof(SerializableTypeAttribute)) && !type.IsAbstract && !type.IsInterface;
         }
         
         private void PopulateSerializationInfos(IEnumerable<Type> serializableTypes)
@@ -87,7 +55,7 @@ namespace TahaCore.Serialization
                 }
                 serializationInfos.Add(serializableType, new SerializationInfo(serializableType, serializableProperties));
             }
-            SerializationInfos = serializationInfos;
+            m_serializationInfos = serializationInfos;
         }
 
     }

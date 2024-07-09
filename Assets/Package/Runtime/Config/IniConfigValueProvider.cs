@@ -7,15 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Cysharp.Threading.Tasks;
-using TahaCore.DI;
-using TahaCore.Serialization;
+using SnakeCore.DI;
+using SnakeCore.Serialization;
 using UnityEngine;
 using UnityEngine.Networking;
 using VContainer;
 using ConfigCollection = System.Collections.Generic.IReadOnlyDictionary<string
     , System.Collections.Generic.IReadOnlyDictionary<string, string>>;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Manages IniConfig files.<br/>
@@ -56,7 +56,7 @@ namespace TahaCore.Config
         {
             if (!m_isInitialized)
             {
-                TahaCoreApplicationRuntime.LogError("ConfigManager is not initialized");
+                SakeCoreApplicationRuntime.LogError("ConfigManager is not initialized");
                 return;
             }
             
@@ -97,7 +97,7 @@ namespace TahaCore.Config
         {
             if (!m_isInitialized)
             {
-                TahaCoreApplicationRuntime.LogWarning("ConfigManager is not initialized");
+                SakeCoreApplicationRuntime.LogWarning("ConfigManager is not initialized");
                 return null;
             }
             
@@ -166,7 +166,7 @@ namespace TahaCore.Config
                 File.Copy(fileName, PersistentDataConfigPath, true);
                 return m_deserializer.Deserialize(File.OpenRead(PersistentDataConfigPath));
             }
-            TahaCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
+            SakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
             return CreateConfig();
         }
         
@@ -182,7 +182,7 @@ namespace TahaCore.Config
                 File.WriteAllTextAsync(PersistentDataConfigPath, data);
                 return configToReturn;
             }
-            TahaCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
+            SakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
             return CreateConfig();
         }
         

@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using TahaCore.Config;
 
-namespace TahaCore.DI.ConfigConditions
+using SnakeCore.Config;
+
+namespace SnakeCore.DI.ConfigConditions
 {
     /// <summary>
     /// Injects a implementation to the DI framework if there is a boolean-parsable config property

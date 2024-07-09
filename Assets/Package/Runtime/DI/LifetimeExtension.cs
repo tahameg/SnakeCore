@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using VContainer;
 
-namespace TahaCore.DI
+namespace SnakeCore.DI
 {
     /// <summary>
     /// include helper methods for converting LifetimeType to Lifetime

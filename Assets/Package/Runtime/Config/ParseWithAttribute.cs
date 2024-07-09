@@ -2,10 +2,11 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-using System;
-using TahaCore.Serialization.TypeParsers;
 
-namespace TahaCore.Config
+using System;
+using SnakeCore.Serialization.TypeParsers;
+
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Used to specify a parser for a config property.

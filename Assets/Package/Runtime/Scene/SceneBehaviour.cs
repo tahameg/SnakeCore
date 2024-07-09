@@ -1,7 +1,7 @@
-using TahaCore.DI;
+using SnakeCore.DI;
 using VContainer;
 
-namespace TahaCore.Scene
+namespace SnakeCore.Scene
 {
     /// <summary>
     /// Internally capable of sending and receiving new events to the event bus.

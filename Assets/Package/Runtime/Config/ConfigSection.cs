@@ -6,12 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TahaCore.DI;
-using TahaCore.Serialization.TypeParsers;
-using UnityEngine;
+using SnakeCore.DI;
+using SnakeCore.Serialization.TypeParsers;
 using VContainer;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Base class for ConfigSection Dtos. This Implementation automatically populates the classes that
@@ -27,13 +26,13 @@ namespace TahaCore.Config
 
         protected ConfigSection()
         {
-            if (TahaCoreApplicationRuntime.Instance == null)
+            if (SakeCoreApplicationRuntime.Instance == null)
             {
-                TahaCoreApplicationRuntime.LogError("TahaCoreApplicationRuntime is not initialized");
+                SakeCoreApplicationRuntime.LogError("SakeCoreApplicationRuntime is not initialized");
                 return;
             }
             var type = GetType();
-            m_configValueProvider = TahaCoreApplicationRuntime.Instance.Container.Resolve<IConfigValueProvider>();
+            m_configValueProvider = SakeCoreApplicationRuntime.Instance.Container.Resolve<IConfigValueProvider>();
 
             var sectionAttribute = GetType().GetCustomAttribute<ConfigSectionAttribute>();
             
@@ -41,7 +40,7 @@ namespace TahaCore.Config
             m_section = m_configValueProvider.GetSection(m_sectionName);
             if (m_section == null)
             {
-                TahaCoreApplicationRuntime.LogWarning($"No config section found for {m_sectionName} in the config " +
+                SakeCoreApplicationRuntime.LogWarning($"No config section found for {m_sectionName} in the config " +
                                                       $"file. Properties of the section {type.Name} will be invalid.");
                 return;
             }
@@ -66,7 +65,7 @@ namespace TahaCore.Config
             string propertyName = attribute.PropertyName;
             if (!m_section.TryGetValue(propertyName, out var propertyStringValue))
             {
-                TahaCoreApplicationRuntime.LogWarning($"No config value found for {m_sectionName}.{propertyName}");
+                SakeCoreApplicationRuntime.LogWarning($"No config value found for {m_sectionName}.{propertyName}");
                 return;
             }
             

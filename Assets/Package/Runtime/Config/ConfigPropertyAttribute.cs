@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System;
 
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class ConfigPropertyAttribute : Attribute

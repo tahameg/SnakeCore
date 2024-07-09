@@ -4,10 +4,10 @@
 // =======================================================================
 
 using System;
-using TahaCore.Serialization;
-using TahaCore.Serialization.TypeParsers;
+using SnakeCore.Serialization;
+using SnakeCore.Serialization.TypeParsers;
 
-namespace TahaCore.Config.TypeParsers
+namespace SnakeCore.Config.TypeParsers
 {
     /// <summary>
     /// Base class for parsers for vector types. Inherit this to create a new parser for a vector type..
@@ -64,7 +64,7 @@ namespace TahaCore.Config.TypeParsers
             var vector = new TVectorDataType[m_dimension];
             for (var i = 0; i < m_dimension; i++)
             {
-                if (!CommonTypeParser.TryParsePrimitive(typeof(TVectorDataType), split[i].Trim(), out var parsed))
+                if (!PrimitiveSerialization.TryDeserialize(typeof(TVectorDataType), split[i].Trim(), out var parsed))
                 {
                     throw new FormatException($"Invalid value to parser {nameof(TVectorType)}: {split[i]}.");
                 }

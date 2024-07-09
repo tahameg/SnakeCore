@@ -2,7 +2,7 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-namespace TahaCore.DI.ConfigConditions
+namespace SnakeCore.DI.ConfigConditions
 {
     /// <summary>
     /// Existence comparision types

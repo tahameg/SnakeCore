@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
-using TahaCore.Config;
-using TahaCore.DI;
-using TahaCore.Serialization;
-using TahaCore.Serialization.JsonSerialization;
-using TahaCore.Serialization.TypeParsers;
+using SnakeCore.Config;
+using SnakeCore.DI;
+using SnakeCore.Serialization.TypeParsers;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -14,7 +13,14 @@ namespace TahaCore.Tests.PlayMode.Config
     public class ConfigTests : RuntimeTestBoot
     {
         protected override string AdditionalConfig =>
-            "[TestConfig]\nIntValue=159\nBoolValue=True\nFloatValue=3.14\nStringValue=TEST_STRING\nLongValue=1234523789\nIntArray=[1,2,3,4,5]";
+            "[TestConfig]" +
+            "\nIntValue=159" +
+            "\nBoolValue=True" +
+            "\nFloatValue=3.14" +
+            "\nStringValue=TEST_STRING" +
+            "\nLongValue=1234523789" +
+            "\nIntArray=[1,2,3,4,5]" +
+            "\nIntList=[1,2,3,4,5]";
         private TestConfig m_testConfig;
         
         [OneTimeSetUp]
@@ -42,6 +48,18 @@ namespace TahaCore.Tests.PlayMode.Config
         }
         
         [Test]
+        public void ConfigSectionListParsingTest()
+        {
+            Assert.NotNull(m_testConfig);
+            int i = 0;
+            foreach (var item in m_testConfig.SomeIntList)
+            {
+                Assert.IsTrue(item == i + 1);
+                i++;
+            }
+        }
+        
+        [Test]
         public void UseParserTest()
         {
             Assert.NotNull(m_testConfig);
@@ -61,6 +79,7 @@ namespace TahaCore.Tests.PlayMode.Config
         [ParseWith(typeof(LongParser))]
         [ConfigProperty("LongValue")] public long SomeLong { get; set; }
         [ConfigProperty("IntArray")] public int[] SomeIntArray { get; set; }
+        [ConfigProperty("IntList")] public List<int> SomeIntList { get; set; }
     }
     
     [Preserve]

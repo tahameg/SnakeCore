@@ -4,11 +4,11 @@
 // =======================================================================
 
 using System;
-using TahaCore.Serialization;
-using TahaCore.Serialization.TypeParsers;
+using SnakeCore.Serialization;
+using SnakeCore.Serialization.TypeParsers;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Config.TypeParsers
+namespace SnakeCore.Config.TypeParsers
 {
     /// <summary>
     /// Parses a string value to an array of objects. The string should be wrapped between
@@ -79,7 +79,7 @@ namespace TahaCore.Config.TypeParsers
         /// <exception cref="FormatException">Thrown if the given string cannot be parsed.</exception>
         private object ParseItem(string value)
         {
-            if(!CommonTypeParser.TryParsePrimitive(m_elementType, value, out var parsedValue))
+            if(!PrimitiveSerialization.TryDeserialize(m_elementType, value, out var parsedValue))
             {
                 throw new FormatException($"Cannot parse '{value}' to {m_elementType.Name}.");
             }

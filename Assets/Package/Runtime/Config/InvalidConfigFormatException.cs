@@ -2,7 +2,7 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
-namespace TahaCore.Config
+namespace SnakeCore.Config
 {
     /// <summary>
     /// Exception thrown when the config file is not in the correct format.

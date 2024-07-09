@@ -2,23 +2,21 @@
     "name": "TahaCore.Tests.PlayMode",
     "rootNamespace": "TahaCore.Tests.PlayMode",
     "references": [
-        "TahaCore",
         "VContainer",
         "UniTask",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "SnakeCore"
     ],
     "includePlatforms": [
-        "Android",
-        "Editor",
-        "WindowsStandalone32",
-        "WindowsStandalone64"
+        "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

@@ -2,9 +2,10 @@
 // MIT License
 // Author: Taha Mert Gökdemir
 // =======================================================================
+
 using System;
 
-namespace TahaCore.Serialization
+namespace SnakeCore.Serialization
 {
     /// <summary>
     /// Interface for parsing string values to a given type.

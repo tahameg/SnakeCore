@@ -1,8 +1,8 @@
-﻿using TahaCore.Config;
-using TahaCore.DI;
+﻿using SnakeCore.Config;
+using SnakeCore.DI;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Scene
+namespace SnakeCore.Scene
 {
     [ConfigSection("SceneEventSettings")]
     [ApplicationRuntimeRegistry(LifetimeType.Singleton)]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace TahaCore.Serialization
+namespace SnakeCore.Serialization
 {
     public class SerializationInfo
     {
@@ -13,6 +13,16 @@ namespace TahaCore.Serialization
         {
             Type = type;
             SerializableProperties = serializableProperties;
+        }
+        
+        public PropertyInfo GetProperty(string serializationName)
+        {
+            if (SerializableProperties.TryGetValue(serializationName, out var property))
+            {
+                return property;
+            }
+
+            return null;
         }
     }
 }

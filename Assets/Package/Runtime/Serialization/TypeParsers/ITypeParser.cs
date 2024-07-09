@@ -4,9 +4,8 @@
 // =======================================================================
 
 using System;
-using TahaCore.Config;
 
-namespace TahaCore.Serialization.TypeParsers
+namespace SnakeCore.Serialization.TypeParsers
 {
     /// <summary>
     /// Interface for parsing data types from string. Each TypeParser targets a specific type.

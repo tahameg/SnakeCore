@@ -1,4 +1,4 @@
-namespace TahaCore.Scene
+namespace SnakeCore.Scene
 {
     public abstract class SceneEvent
     {

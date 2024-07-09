@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using TahaCore.DI;
+using SnakeCore.DI;
 using VContainer;
 
-namespace TahaCore.Scene
+namespace SnakeCore.Scene
 {
     [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ISceneEventHistory), typeof(ISceneEventProvider))]
     internal class SceneEventManager : ISceneEventHistory, ISceneEventProvider
@@ -51,7 +51,7 @@ namespace TahaCore.Scene
             {
                 if (subscribers.Contains(action))
                 {
-                    TahaCoreApplicationRuntime.LogWarning($"Action {action} already subscribed to {sceneEventType}");
+                    SakeCoreApplicationRuntime.LogWarning($"Action {action} already subscribed to {sceneEventType}");
                     return;
                 }
                 subscribers.Add(action);

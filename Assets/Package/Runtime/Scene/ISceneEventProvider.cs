@@ -1,6 +1,6 @@
 using System;
 
-namespace TahaCore.Scene
+namespace SnakeCore.Scene
 {
     /// <summary>
     /// Provides scene event subscription services. <seealso cref="ISceneEventHistory"/>
