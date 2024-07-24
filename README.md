@@ -1,7 +1,7 @@
 ﻿
 
 
-![Version](https://img.shields.io/badge/version-0.2.2-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![Unity](https://img.shields.io/badge/Unity-2022.3.4f1-black.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
