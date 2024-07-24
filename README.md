@@ -41,9 +41,7 @@ and scalable project structures.
       ]
     }
     ```
-3. Go to the package manager in Unity. Click on the `+` button and select `Add package from disk...`.
-4. Select the `package.json` file in the Assets/Package folder of SnakeCore.
-5. Verify that all project dependencies are met.
+3. Go to the package manager in Unity. Go to "My Registries". Find the "SnakeCore" package and click "Install".
 
 ## Usage
 
