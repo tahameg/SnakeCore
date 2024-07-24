@@ -1,7 +1,7 @@
 ﻿
 
 
-![Version](https://img.shields.io/badge/version-0.2.2-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![Unity](https://img.shields.io/badge/Unity-2022.3.4f1-black.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -41,9 +41,7 @@ and scalable project structures.
       ]
     }
     ```
-3. Go to the package manager in Unity. Click on the `+` button and select `Add package from disk...`.
-4. Select the `package.json` file in the Assets/Package folder of SnakeCore.
-5. Verify that all project dependencies are met.
+3. Go to the package manager in Unity. Go to "My Registries". Find the "SnakeCore" package and click "Install".
 
 ## Usage
 
