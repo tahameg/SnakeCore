@@ -18,10 +18,11 @@ namespace SnakeCore.DI
         /// Registered types with this attribute.
         /// </summary>
         public IEnumerable<Type> RegisteredTypes => m_registeredTypes;
-        private List<Type> m_registeredTypes = new();
+        private readonly List<Type> m_registeredTypes = new();
         
         public LifetimeType LifetimeType => m_lifetimeType;
-        private LifetimeType m_lifetimeType;
+        private readonly LifetimeType m_lifetimeType;
+        
 
         /// <summary>
         /// Attribute is used to register types in the application runtime. lifetimeType is specifies

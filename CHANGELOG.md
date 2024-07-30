@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.2.0] - 2024-07-30
+### Added
+- Scene Scope has been implemented. Scene Scope is a scope that is 
+created for each scene and is destroyed when the scene is destroyed.
+- EntryPoints are now supported. EntryPoints allow access to Unity's lifecycle events.
 
 ## [1.1.0] - 2024-07-24
 ### Added
