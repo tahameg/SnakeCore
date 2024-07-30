@@ -50,89 +50,130 @@ and scalable project structures.
 Dependency injection is a software design pattern that promotes loose coupling and modularity.
 SnakeCore is built on top a flexible and efficient dependency injection mechanism that provides:
 
-- **Attribute-based Injection**: Use attributes to inject dependencies into your classes which makes
-  easier to configure IoC container.
-- **Registering with concrete types**: Registering concrete types is not suggested for most cases since it 
-harms the abstraction. On the other hand, this approach is better alternative to the singletons since 
-this approach doesn't hide the class depencencies.
-   ```csharp
-      public interface ISerializer
-      {
-          string Serialize<T>(T obj);
-          T Deserialize<T>(string data);
-      }
+- **Attribute-based Injection**: 
+  - Use attributes to inject dependencies into your classes which makes
+    easier to configure IoC container.
+- **Registering with concrete types**: 
+  - Registering concrete types is not suggested for most cases since it 
+  harms the abstraction. On the other hand, this approach is better alternative to the singletons since 
+  this approach doesn't hide the class depencencies.
+     ```csharp
+        public interface ISerializer
+        {
+            string Serialize<T>(T obj);
+            T Deserialize<T>(string data);
+        }
       
-      //Registering the UnityJsonSerializer as default implementation of ISerializer
-      [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ISerializer))]
-      public class UnityJsonSerializer : ISerializer
-      {
-          public string Serialize<T>(T obj)
-          {
-              return JsonUtility.ToJson(obj);
-          }
+        //Registering the UnityJsonSerializer as default implementation of ISerializer
+        [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ISerializer))]
+        public class UnityJsonSerializer : ISerializer
+        {
+            public string Serialize<T>(T obj)
+            {
+                return JsonUtility.ToJson(obj);
+            }
       
-          public T Deserialize<T>(string data)
-          {
-              return JsonUtility.FromJson<T>(data);
-          }
-      }
+            public T Deserialize<T>(string data)
+            {
+                return JsonUtility.FromJson<T>(data);
+            }
+        }
       
-      //Dependencies can be injected to the InjectableMonoBehaviours by using the [Inject] attribute.
-      public class PlayerDataManager : InjectableMonoBehaviour
-      {
-          //The registered ISerializer will be injected to the _serializer field.
-          [Inject] private ISerializer _serializer;
-          private PlayerData _playerData;
+        //Dependencies can be injected to the InjectableMonoBehaviours by using the [Inject] attribute.
+        public class PlayerDataManager : InjectableMonoBehaviour
+        {
+            //The registered ISerializer will be injected to the _serializer field.
+            [Inject] private ISerializer _serializer;
+            private PlayerData _playerData;
       
-          protected override void Awake()
-          {
-              //Don't forget to call base.Awake() to ensure that the dependencies are injected.
-              base.Awake();
-              // Use the injected dependency safely
-              string serializedData = _serializer.Serialize(_playerData);
-          }
-      } 
+            protected override void Awake()
+            {
+                //Don't forget to call base.Awake() to ensure that the dependencies are injected.
+                base.Awake();
+                // Use the injected dependency safely
+                string serializedData = _serializer.Serialize(_playerData);
+            }
+        } 
       
-      //Dependencies of the other classes that are also registered to the IoC container 
-      //can be injected by with the constructor injection.
-      //Concrete types can be registered to the IoC container directly 
-      //to ensure that dependencies are resolved correctly and,
-      //to simplify creation of singletons without hiding the dependencies.
-      [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-      public class PlayerDataEvaluater
-      {
-          private ISerializer _serializer;
-          public void PlayerDataEvaluater(ISerializer serializer)
-          {
-              _serializer = serializer;
-          }
+        //Dependencies of the other classes that are also registered to the IoC container 
+        //can be injected by with the constructor injection.
+        //Concrete types can be registered to the IoC container directly 
+        //to ensure that dependencies are resolved correctly and,
+        //to simplify creation of singletons without hiding the dependencies.
+        [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
+        public class PlayerDataEvaluater
+        {
+            private ISerializer _serializer;
+            public void PlayerDataEvaluater(ISerializer serializer)
+            {
+                _serializer = serializer;
+            }
           
-          // some more implementation
-          // ...
-          private void EvaluteAndSavePlayerData()
-          {
-              // Do some operations ..
-              var playerData = _serializer.Serialize(serializedData);
-              saveManager.Save(playerData);
-          }
-      }
+            // some more implementation
+            // ...
+            private void EvaluteAndSavePlayerData()
+            {
+                // Do some operations ..
+                var playerData = _serializer.Serialize(serializedData);
+                saveManager.Save(playerData);
+            }
+        }
    
-   ```
-- **Ini-based Injection**: Inject types based on ini file configurations,
-  providing a flexible and dynamic approach to dependency injection. This feature unlocks
-  configuring which types to inject based on ini file configurations at runtime.
-   ```csharp
-    //Registers the type to the IoC container with the specified lifetime and the type 
-    //only if ConfigConditionAttribute is satisfied: 
-    // Register if there is a config value with the key "BoolCondition" 
-    // in the section "CONFIG_CONDITIONS" and the value is true.
-    [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
-    [BoolConfigCondition("CONFIG_CONDITIONS", "BoolCondition", true)]
-    public class BoolConditionalInjectionPositiveTestType
-    {
+     ```
+- **Application Runtime Registry and Scene Runtime Registry**: 
+  - Application Runtime provides a global scope for the
+    registered types. Types that are registered to the Application Runtime are available throughout the application.
+    Scene Runtime provides a scene-based scope for the registered types. Types that are registered to the Scene Runtime
+    are created when the scene is loaded and are destroyed when the scene is unloaded.
+    - **Application Runtime Registry**: 
+      - Register types to the IoC container with the specified lifetime using the 
+      `ApplicationRuntimeRegistry`. Also add `SnakeCoreApplicationRuntime` to the first scene of the application. 
+      Application Runtime is preserved between the scenes. So, don't need to add `SnakeCoreApplicationRuntime` to the 
+      other scenes.
+      - Lifetime of the registration can be either `Singleton` or `Instanced`. A type that is registered as `Singleton`
+      will be created once and will be available throughout the application.
+      - A new object for every type that is registered as `Instanced` will be created each time it is requested.
+          ```csharp
+          //Registers the type to the IoC container with the specified lifetime.
+          [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
+          public class SingletonType
+          {
+            
+          }
+          ```
+    - **Scene Runtime Registry**:
+      - Register types to the IoC container using the`SceneRuntimeRegistry` with the specified scene name. The scene 
+      with the specified name must have a `SnakeCoreSceneRuntime` component.
+      - Lifetime of the registration is always `Scoped`. This means, if multiple additive scenes are loaded, every 
+      scene will have its own instance if the type is registered to both scenes.
+      - Types that are registered to the Scene Runtime can access the types that are registered to the Application Runtime.
+      ```csharp
+       //Registers the type to the IoC container with the specified lifetime.
+       [SceneRuntimeRegistry(sceneName: "SceneName")]
+       public class SingletonType
+       {
         
-    }
-   ```
+       }
+       ```
+    - **Registering Plain C# Entry Points**: 
+      - Plain C# entry points are life-cycle methods that can be implemented in the classes that are registered t
+    
+- **Ini-based Injection**: 
+  - Inject types based on ini file configurations,
+    providing a flexible and dynamic approach to dependency injection. This feature unlocks
+    configuring which types to inject based on ini file configurations at runtime.
+     ```csharp
+      //Registers the type to the IoC container with the specified lifetime and the type 
+      //only if ConfigConditionAttribute is satisfied: 
+      // Register if there is a config value with the key "BoolCondition" 
+      // in the section "CONFIG_CONDITIONS" and the value is true.
+      [ApplicationRuntimeRegistry(LifetimeType.Singleton)]
+      [BoolConfigCondition("CONFIG_CONDITIONS", "BoolCondition", true)]
+      public class BoolConditionalInjectionPositiveTestType
+      {
+        
+      }
+     ```
 - **Manual Injection**: Manually inject dependencies into your objects.
   `IInjector` interface provides a method to manually inject dependencies
   into your object. This is particularly useful when you need to inject dependencies to

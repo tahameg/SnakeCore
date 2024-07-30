@@ -5,38 +5,47 @@
 
 using System;
 using System.Collections.Generic;
+using VContainer;
+using VContainer.Unity;
 
 namespace SnakeCore.DI
 {
     /// <summary>
     /// Includes validated information about a registration.
     /// </summary>
-    internal class RegistrationInfo
+    public class RegistrationInfo
     {
         private Type m_registrationTarget;
-        private LifetimeType m_lifetimeType;
+        private Lifetime m_lifetime;
         private bool m_selfRegistration;
+        private bool m_isEntryPoint;
+        private List<Type> m_entryPointInterfaces;
 
         /// <summary>
         /// Target type to register.
         /// </summary>
-        internal Type Target => m_registrationTarget;
+        public Type Target => m_registrationTarget;
         
         /// <summary>
         /// Is the target registered with itself.
         /// </summary>
-        internal bool SelfRegistration => m_selfRegistration;
+        public bool SelfRegistration => m_selfRegistration;
         
         /// <summary>
         /// Lifetime of the registration.
         /// </summary>
-        internal LifetimeType LifetimeType => m_lifetimeType;
+        public Lifetime Lifetime => m_lifetime;
+        
+        
+        public bool IsEntryPoint => m_isEntryPoint;
         
         private List<Type> m_registrationTypes;
         /// <summary>
         /// Interface type to register the target with.
         /// </summary>
         public IEnumerable<Type> RegistrationTypes => m_registrationTypes;
+
+        public IReadOnlyList<Type> EntryPointInterfaces => m_entryPointInterfaces;
         
         
         /// <summary>
@@ -54,7 +63,7 @@ namespace SnakeCore.DI
         /// If target type is not class type.
         /// If any of registrationTypes are not interface type.
         /// </exception>
-        internal RegistrationInfo(Type target, LifetimeType lifetimeType, params Type[] registrationTypes)
+        internal RegistrationInfo(Type target, Lifetime lifetime, bool isEntryPoint=false, params Type[] registrationTypes)
         {
             if (target == null)
             {
@@ -67,8 +76,10 @@ namespace SnakeCore.DI
             }
             
             m_registrationTarget = target;
-            m_lifetimeType = lifetimeType;
+            m_lifetime = lifetime;
             m_registrationTypes = ValidateRegistrationTypes(target, registrationTypes);
+
+            m_isEntryPoint = isEntryPoint && TryGetEntryPointInterfaces(target, out m_entryPointInterfaces);
             
             if (m_registrationTypes == null || m_registrationTypes.Count == 0)
             {
@@ -101,6 +112,45 @@ namespace SnakeCore.DI
             }
 
             return typesToRegister;
+        }
+        
+        private bool TryGetEntryPointInterfaces(Type type, out List<Type> entryPointInterfaces)
+        {
+            List<Type> types = new List<Type>()
+            {
+                typeof(IInitializable),
+                typeof(IAsyncStartable),
+                typeof(IPostInitializable),
+                typeof(IStartable),
+                typeof(IPostStartable),
+                typeof(IFixedTickable),
+                typeof(IPostFixedTickable),
+                typeof(ITickable),
+                typeof(IPostTickable),
+                typeof(ILateTickable),
+                typeof(IPostLateTickable)
+            };
+            
+            entryPointInterfaces = new List<Type>();
+            
+            foreach (var entryPointType in types)
+            {
+                if (entryPointType.IsAssignableFrom(type))
+                {
+                    entryPointInterfaces.Add(entryPointType);
+                }
+            }
+            
+
+            if (entryPointInterfaces.Count == 0)
+            {
+                SnakeCoreApplicationRuntime
+                    .LogError($"Type {type} is marked as entry point but does " +
+                              $"not implement any of the entry point interfaces.");
+                return false;
+            }
+            
+            return true;
         }
     }
 }
