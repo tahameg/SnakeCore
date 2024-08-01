@@ -41,6 +41,15 @@ namespace SnakeCore.DI
             }
         }
         
+        internal static SnakeCoreSceneRuntime GetSceneRuntime(string sceneName)
+        {
+            if(s_sceneRuntimes.TryGetValue(sceneName, out var runtime))
+            {
+                return runtime;
+            }
+
+            return null;
+        }
         protected override void Awake()
         {
             if (SnakeCoreApplicationRuntime.Instance == null)
