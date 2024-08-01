@@ -11,7 +11,16 @@ namespace SnakeCore.DI
     {
         protected virtual void Awake()
         {
-            SnakeCoreApplicationRuntime.Instance.Container.Inject(this);
+            var sceneRuntime = SnakeCoreSceneRuntime.GetSceneRuntime(gameObject.scene.name);
+            if(sceneRuntime != null)
+            {
+                sceneRuntime.Container.Inject(this);
+            }
+            else
+            {
+                SnakeCoreApplicationRuntime.Instance.Container.Inject(this);
+            }
+            
         }
     }
 }

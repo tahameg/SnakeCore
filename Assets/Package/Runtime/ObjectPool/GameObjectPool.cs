@@ -123,6 +123,33 @@ namespace SnakeCore.ObjectPool
             return result;
         }
         
+        public T GetObject(Vector3 position, Quaternion? rotation = null)
+        {
+            if(m_objectInPoolCount == 0)
+            {
+                CreateBatch(m_batchSize);
+            }
+
+            T result;
+            lock (m_lockObject)
+            {
+                result = m_objects.FirstOrDefault(e => e.IsActive != true);
+                if (result != null)
+                {
+                    result.transform.position = position;
+                    if (rotation != null)
+                    {
+                        result.transform.rotation = rotation.Value;
+                    }
+                    
+                }
+
+                TryActivateObject(result);
+            }
+            
+            return result;
+        }
+        
         public void ReturnObject(IPoolableObject obj)
         {
             if(obj == null) throw new ArgumentNullException(nameof(obj), "Argument cannot be null.");
