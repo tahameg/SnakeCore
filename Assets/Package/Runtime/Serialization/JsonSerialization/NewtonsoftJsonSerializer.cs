@@ -6,22 +6,33 @@ using Newtonsoft.Json;
 namespace SnakeCore.Serialization.JsonSerialization
 {
     /// <summary>
-    /// A temporary solution to use until a more comprehensive and type-based serializer is implemented.
+    /// Serializes and deserializes objects to and from json format using Newtonsoft.Json.
     /// </summary>
     public class NewtonsoftJsonSerializer : IJsonSerializer
     {
         JsonConverter m_jsonConverter;
         JsonSerializerSettings m_jsonSerializerSettings;
+        
+        /// <summary>
+        /// Creates a new instance of the serializer.
+        /// </summary>
+        /// <param name="serializationContext">Serialization context to use.</param>
         public NewtonsoftJsonSerializer(ISerializationContext serializationContext)
         {
-            m_jsonConverter = new TahaCoreJsonConverter(serializationContext); 
+            m_jsonConverter = new SnakeCoreJsonConverter(serializationContext); 
         }
 
+        /// <summary>
+        /// Deserializes the given string to an object of type T.
+        /// </summary>
         public T Deserialize<T>(string serialized)
         {
             return JsonConvert.DeserializeObject<T>(serialized, m_jsonConverter);
         }
 
+        /// <summary>
+        /// Deserializes the given string to an object of the given type.
+        /// </summary>
         public object Deserialize(string serialized, Type targetType)
         {
             return JsonConvert.DeserializeObject(serialized, targetType, m_jsonConverter);
@@ -35,17 +46,26 @@ namespace SnakeCore.Serialization.JsonSerialization
         {
             return JsonConvert.DeserializeObject(serialized, typeof(object), m_jsonConverter);
         }
-
+        
+        /// <summary>
+        /// Serializes the given object to a json string.
+        /// </summary>
         public string Serialize<T>(T obj)
         {
             return JsonConvert.SerializeObject(obj, m_jsonConverter);
         }
 
+        /// <summary>
+        /// Serializes the given object to a json string.
+        /// </summary>
         public string Serialize(object obj)
         {
             return JsonConvert.SerializeObject(obj, m_jsonConverter);
         }
-
+        
+        /// <summary>
+        /// Deserializes the given stream to an object of type T.
+        /// </summary>
         public async UniTask<T> DeserializeAsync<T>(Stream stream)
         {
             using StreamReader reader = new StreamReader(stream);
@@ -53,7 +73,10 @@ namespace SnakeCore.Serialization.JsonSerialization
             string serialized = await reader.ReadToEndAsync();
             return Deserialize<T>(serialized);
         }
-
+    
+        /// <summary>
+        /// Deserializes the given stream to an object.
+        /// </summary>
         public async UniTask<object> DeserializeAsync(Stream stream)
         {
             using StreamReader reader = new StreamReader(stream);

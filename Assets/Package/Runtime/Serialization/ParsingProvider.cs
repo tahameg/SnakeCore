@@ -6,7 +6,7 @@
 using System;
 using SnakeCore.DI;
 using SnakeCore.Serialization.JsonSerialization;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace SnakeCore.Serialization
 {

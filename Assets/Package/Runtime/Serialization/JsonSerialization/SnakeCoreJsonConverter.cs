@@ -9,10 +9,10 @@ using UnityEngine;
 
 namespace SnakeCore.Serialization.JsonSerialization
 {
-    public class TahaCoreJsonConverter : JsonConverter
+    public class SnakeCoreJsonConverter : JsonConverter
     {
         private ISerializationContext m_serializationContext;
-        public TahaCoreJsonConverter(ISerializationContext serializationContext)
+        public SnakeCoreJsonConverter(ISerializationContext serializationContext)
         {
             m_serializationContext = serializationContext;
         }
