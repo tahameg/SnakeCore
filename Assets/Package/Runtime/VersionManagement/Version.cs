@@ -32,7 +32,7 @@ namespace SnakeCore.VersionManagement
         /// By default, [ __custom-tags__ &lt; alpha &lt; beta &lt; rc ] <see cref="CommonTagComparer"/></param>
         public PreReleaseField(string tag, int version = 0, IComparer<string> tagComparer = null)
         {
-            Tag = tag;
+            Tag = tag.Trim().ToLower();
             Version = version;
             m_tagComparer = tagComparer ?? new CommonTagComparer();
         }
@@ -53,6 +53,7 @@ namespace SnakeCore.VersionManagement
         /// By default, [ __custom-tags__ &lt; alpha &lt; beta &lt; rc ] <see cref="CommonTagComparer"/></param>
         public static PreReleaseField Parse(string rawTag, IComparer<string> tagComparer = null)
         {
+            rawTag = rawTag.Trim().ToLower();
             string[] splitted = rawTag.Split(".");
             if (splitted.Length > 2 || splitted.Length < 1)
             {
@@ -193,6 +194,12 @@ namespace SnakeCore.VersionManagement
         /// By default, [ __custom-tags__ &lt; alpha &lt; beta &lt; rc ] </param>
         public static Version Parse(string versionTag, IComparer<string> preReleaseTagComparer = null)
         {
+            versionTag = versionTag.Trim().ToLower();
+            if (versionTag.StartsWith("v"))
+            {
+                versionTag = versionTag.Substring(1);
+            }
+            
             string[] splitted = versionTag.Split("-");
 
             if (splitted.Length == 0)

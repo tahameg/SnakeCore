@@ -14,8 +14,8 @@ namespace SnakeCore.Tests.PlayMode.VersionManagement
             "12.45.2-rc.43",
             "12.45.2-rc.42",
             "12.45.2-alpha.42",
-            "12.45.2",
-            "12.45.2-alpha.1",
+            "v12.45.2",
+            "V12.45.2-alpha.1",
             "12.45.2"
         };
         
