@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -135,14 +136,14 @@ namespace SnakeCore.Serialization
             
             if(targetType == typeof(float))
             {
-                var returnVal = float.TryParse(value, out var tempResult);
+                var returnVal = float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var tempResult);
                 result = returnVal ? tempResult : null;
                 return returnVal;
             }
             
             if(targetType == typeof(double))
             {
-                var returnVal = double.TryParse(value, out var tempResult);
+                var returnVal = double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var tempResult);
                 result = returnVal ? tempResult : null;
                 return returnVal;
             }

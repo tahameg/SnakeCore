@@ -3,7 +3,7 @@ using SnakeCore.DI;
 using SnakeCore.DI.ConfigConditions;
 using VContainer;
 
-namespace TahaCore.Tests.PlayMode.DI
+namespace SnakeCore.Tests.PlayMode.DI
 {
     [TestFixture]
     public class ConfigConditionalInjectionTests : RuntimeTestBoot

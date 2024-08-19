@@ -1,7 +1,7 @@
 using SnakeCore.DI;
 using UnityEngine;
 
-namespace TahaCore.Tests.PlayMode
+namespace SnakeCore.Tests.PlayMode
 {
     public abstract class RuntimeTestBoot
     {

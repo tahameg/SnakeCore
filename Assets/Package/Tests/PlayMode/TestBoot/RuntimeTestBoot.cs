@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace TahaCore.Tests.PlayMode.TestBoot
+namespace SnakeCore.Tests.PlayMode.TestBoot
 {
     [TestFixture]
     public class RuntimeTestBoot : PlayMode.RuntimeTestBoot
