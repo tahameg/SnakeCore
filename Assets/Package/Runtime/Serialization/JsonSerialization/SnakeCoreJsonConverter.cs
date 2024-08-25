@@ -122,8 +122,12 @@ namespace SnakeCore.Serialization.JsonSerialization
         {
             object result;
             SerializationInfo serializationInfo;
-            string typeParameter = obj["$type"].Value<string>();
-            
+            string typeParameter = null;
+            if (obj.ContainsKey("$type"))
+            {
+                typeParameter = obj[$"type"].Value<string>();
+            }
+
             if (objectType == typeof(object))
             {
                 if (typeParameter == null)
