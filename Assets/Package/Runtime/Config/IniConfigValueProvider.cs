@@ -6,6 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
 using Cysharp.Threading.Tasks;
 using SnakeCore.DI;
 using SnakeCore.Serialization;
@@ -153,7 +156,7 @@ namespace SnakeCore.Config
         {
             #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX
             return CopyFromStreamingAssetsFileSystem();
-            #elif UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL
+            #elif (UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL)
             return CopyFromStreamingAssetsWeb();
             #endif
         }
@@ -172,19 +175,31 @@ namespace SnakeCore.Config
         
         private ConfigCollection CopyFromStreamingAssetsWeb()
         {
-            UnityWebRequest www = UnityWebRequest.Get($"{Application.streamingAssetsPath}/{k_configFileName}");
-            www.timeout = 3; // This is absolutely expected to take less than 3 seconds in a local environment.
-            var result = www.SendWebRequest().GetAwaiter().GetResult();
-            if (result.result == UnityWebRequest.Result.Success)
-            { 
-                string data = www.downloadHandler.text;
-                var configToReturn = m_deserializer.Deserialize(data);
-                File.WriteAllTextAsync(PersistentDataConfigPath, data);
+            var result = ReadFromStreamingAssets().GetAwaiter().GetResult();
+            if (!string.IsNullOrEmpty(result))
+            {
+                var configToReturn = m_deserializer.Deserialize(result);
+                File.WriteAllTextAsync(PersistentDataConfigPath, result);
                 return configToReturn;
             }
             SnakeCoreApplicationRuntime.LogWarning("Config file not found in streaming assets. Creating empty config.");
             return CreateConfig();
         }
+
+        private async UniTask<string> ReadFromStreamingAssets()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var result = await client.GetAsync($"{Application.streamingAssetsPath}/{k_configFileName}");
+                if (result.IsSuccessStatusCode)
+                {
+                    return await result.Content.ReadAsStringAsync();
+                }
+            }
+
+            return "";
+        }
+        
         
         private ConfigCollection CreateConfig()
         {

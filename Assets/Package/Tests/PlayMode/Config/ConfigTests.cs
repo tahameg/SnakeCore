@@ -7,7 +7,7 @@ using SnakeCore.Serialization.TypeParsers;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace TahaCore.Tests.PlayMode.Config
+namespace SnakeCore.Tests.PlayMode.Config
 {
     [TestFixture]
     public class ConfigTests : RuntimeTestBoot
@@ -15,12 +15,13 @@ namespace TahaCore.Tests.PlayMode.Config
         protected override string AdditionalConfig =>
             "[TestConfig]" +
             "\nIntValue=159" +
-            "\nBoolValue=True" +
+            "\nBoolValue=true" +
             "\nFloatValue=3.14" +
             "\nStringValue=TEST_STRING" +
             "\nLongValue=1234523789" +
             "\nIntArray=[1,2,3,4,5]" +
             "\nIntList=[1,2,3,4,5]";
+        
         private TestConfig m_testConfig;
         
         [OneTimeSetUp]
@@ -34,9 +35,9 @@ namespace TahaCore.Tests.PlayMode.Config
         {
             Assert.NotNull(m_testConfig);
             Assert.IsTrue(m_testConfig.SomeInteger == 159);
-            Assert.IsTrue(m_testConfig.SomeBoolean == true);
             Assert.IsTrue(Mathf.Approximately(m_testConfig.SomeFloat ,3.14f));
-            Assert.IsTrue(m_testConfig.SomeString == "TEST_STRING");
+            Assert.IsTrue(string.Equals(m_testConfig.SomeString, "TEST_STRING"));
+            Assert.IsTrue(m_testConfig.SomeBoolean);
         }
 
         [Test]

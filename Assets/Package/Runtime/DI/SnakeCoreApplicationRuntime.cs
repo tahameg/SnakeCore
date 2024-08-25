@@ -55,7 +55,7 @@ namespace SnakeCore.DI
                 return;
             }
             // use a temporary logger until the container is built.
-            m_logger = new TahaCoreLogger();
+            m_logger = new SnakeCoreLogger();
             Instance = this;
             DontDestroyOnLoad(this);
             base.Awake();

@@ -5,7 +5,7 @@ using SnakeCore.Serialization;
 using SnakeCore.Serialization.JsonSerialization;
 using UnityEngine;
 
-namespace TahaCore.Tests.PlayMode.Serialization
+namespace SnakeCore.Tests.PlayMode.Serialization
 {
     public class JsonSerializationTest : RuntimeTestBoot
     {
@@ -127,10 +127,10 @@ namespace TahaCore.Tests.PlayMode.Serialization
         
         private const string TEST_JSON_1 = 
             "{" +
-            "   \"$type\":\"TahaCore.Tests.PlayMode.Serialization.SerializableTestClass\"," + 
+            "   \"$type\":\"SnakeCore.Tests.PlayMode.Serialization.SerializableTestClass\"," + 
             "   \"testInt\":5," +
             "   \"testObject\": {" +
-            "       \"$type\":\"TahaCore.Tests.PlayMode.Serialization.SerializableInnerClass\"," + 
+            "       \"$type\":\"SnakeCore.Tests.PlayMode.Serialization.SerializableInnerClass\"," + 
             "       \"testFloat\":3.0," +
             "       \"serializableVector3\": \"(0, 1, 2)\"" +
             "   }" +

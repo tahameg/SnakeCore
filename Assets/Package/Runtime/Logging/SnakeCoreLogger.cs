@@ -8,10 +8,10 @@ using SnakeCore.DI;
 namespace SnakeCore.Logging
 {
     /// <summary>
-    /// TahaCoreLogger is a simple logger that uses Unity's Debug.Log, Debug.LogWarning and Debug.LogError
+    /// SnakeCoreLogger is a simple logger that uses Unity's Debug.Log, Debug.LogWarning and Debug.LogError
     /// </summary>
     [ApplicationRuntimeRegistry(LifetimeType.Singleton, typeof(ILogger))]
-    public class TahaCoreLogger : ILogger
+    public class SnakeCoreLogger : ILogger
     {
         public void LogError(object message)
         {

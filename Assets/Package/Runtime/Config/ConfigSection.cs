@@ -24,6 +24,8 @@ namespace SnakeCore.Config
         private readonly IReadOnlyDictionary<string, string> m_section;
         private readonly IConfigValueProvider m_configValueProvider;
 
+        [ConfigProperty("Version")]
+        public string Version { get; private set; }
         protected ConfigSection()
         {
             if (SnakeCoreApplicationRuntime.Instance == null)

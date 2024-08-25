@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SnakeCore.DI;
 
-namespace TahaCore.Tests.PlayMode.DI
+namespace SnakeCore.Tests.PlayMode.DI
 {
     [TestFixture]
     public class InjectionTests : RuntimeTestBoot

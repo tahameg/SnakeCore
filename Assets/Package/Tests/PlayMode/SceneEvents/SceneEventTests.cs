@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using SnakeCore.Scene;
 
-namespace TahaCore.Tests.PlayMode.SceneEvents
+namespace SnakeCore.Tests.PlayMode.SceneEvents
 {
     public class SceneEventTests : RuntimeTestBoot
     {
