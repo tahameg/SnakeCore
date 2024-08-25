@@ -1,4 +1,5 @@
 using System;
+using SnakeCore.Scene;
 using UnityEngine;
 
 namespace SnakeCore.ObjectPool
@@ -6,7 +7,7 @@ namespace SnakeCore.ObjectPool
     /// <summary>
     /// Base class for poolable MonoBehaviours. <seealso cref="GameObjectPool"/>
     /// </summary>
-    public class PoolableMonoBehaviour : MonoBehaviour, IPoolableObject
+    public class PoolableMonoBehaviour : SceneBehaviour, IPoolableObject
     {
         /// <summary>
         /// Returns the object to the pool.
